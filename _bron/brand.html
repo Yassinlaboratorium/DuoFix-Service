@@ -1,0 +1,337 @@
+<title>{{TITLE}}</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Instrument+Sans:wght@400..700&display=swap">
+<style>{{CSS}}</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 40 40">
+    <rect x="1.5" y="1.5" width="37" height="37" rx="3" fill="currentColor"/>
+    <rect x="6.5" y="6.5" width="12" height="12" fill="var(--paper)" opacity=".28"/>
+    <rect x="21.5" y="6.5" width="12" height="12" fill="var(--sky)"/>
+    <path d="M24 16.5 L31.5 9" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+    <rect x="6.5" y="21.5" width="12" height="12" fill="var(--paper)" opacity=".28"/>
+    <rect x="21.5" y="21.5" width="12" height="12" fill="var(--paper)" opacity=".28"/>
+  </symbol>
+  <symbol id="check" viewBox="0 0 20 20"><path d="M4 10.5l3.5 3.5L16 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arrow" viewBox="0 0 20 20"><path d="M4 10h11M11 5.5l4.5 4.5-4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="lr" viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="phone" viewBox="0 0 20 20"><path d="M6.6 2.8l2 3.6-1.5 1.6a10 10 0 004.9 4.9l1.6-1.5 3.6 2-.8 3a1.6 1.6 0 01-1.7 1.1A15.4 15.4 0 012.5 5.4 1.6 1.6 0 013.6 3.6z" fill="currentColor"/></symbol>
+</svg>
+
+<div class="demo"><div class="wrap"><span>Voorbeeldsite · <b>{{PAKKET}}</b></span><span>Prijzen en reviews zijn voorbeeldinhoud</span></div></div>
+<div class="util"><div class="wrap">
+  <ul><li>Gratis plaatsbezoek</li><li>BA-verzekerd</li><li>Ma tot za, 7u30 tot 18u</li></ul>
+  <span>Bel of WhatsApp <span class="tel">0470 12 34 56</span></span>
+</div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="logo" href="#top" aria-label="DuoFix Service, naar home"><svg><use href="#mark"/></svg><span><b>DuoFix</b><small>Service · Ramen · Gevels · Klusjes</small></span></a>
+  <nav class="links" aria-label="Hoofdmenu">
+    <a href="#diensten">Diensten</a>
+    <!--P--><a href="#abonnement">Abonnement</a><!--/P-->
+    <a href="#werkgebied">Werkgebied</a>
+    <a href="#reviews">Reviews</a>
+    <!--G--><a class="btn brick" href="#offerte"><span>Gratis offerte</span><svg><use href="#arrow"/></svg></a><!--/G-->
+    <!--P--><a class="btn brick" href="#boeken"><span>Boek online</span><svg><use href="#arrow"/></svg></a><!--/P-->
+  </nav>
+</div></header>
+
+<main id="top">
+<div data-view="home">
+
+<div class="hero"><div class="wrap">
+  <div>
+    <span class="kicker">Sint-Niklaas en het Waasland</span>
+    <h1>Weer helder<span class="thin">zicht.</span></h1>
+    <p class="lead">Ramen wassen, terras- en gevelreiniging, dakgoten en klusjeswerk. Eén vaste vakman die je bij naam kent, en een prijs die je vooraf weet.</p>
+    <ul class="checks">
+      <li><svg><use href="#check"/></svg>Osmosewater, geen strepen</li>
+      <li><svg><use href="#check"/></svg>Tot 12 m hoog vanaf de grond</li>
+      <li><svg><use href="#check"/></svg>Vaste prijs vooraf</li>
+    </ul>
+    <div class="cta">
+      <!--G--><a class="btn brick" href="#offerte">Stuur foto's, krijg een prijs<svg><use href="#arrow"/></svg></a><!--/G-->
+      <!--P--><a class="btn brick" href="#prijs">Bereken je prijs<svg><use href="#arrow"/></svg></a><!--/P-->
+      <a class="btn ghost" href="#diensten">Bekijk de tarieven</a>
+    </div>
+  </div>
+  <figure class="house" style="margin:0">
+    <div class="frame"><canvas id="fac" aria-label="Rijwoning met vuile ramen die je zelf proper kan vegen"></canvas><canvas id="grime" class="grime"></canvas></div>
+    <figcaption><span id="hint">Veeg met je muis of vinger over de ramen</span><span class="meter">Proper <i><span id="bar"></span></i><span id="pct" class="num">0%</span></span></figcaption>
+  </figure>
+</div></div>
+
+<section id="diensten" class="alt"><div class="wrap">
+  <div class="head">
+    <div><span class="kicker">Diensten en tarieven</span><h2>Wat het kost, zonder omweg.</h2></div>
+    <p class="lead">Richtprijzen inclusief btw. Elke dienst heeft een eigen pagina met alle details, zodat klanten je vinden op wat ze zoeken.</p>
+  </div>
+  <div class="tarief" id="tarief"></div>
+  <p class="tnote">Geen verplaatsingskosten binnen het Waasland. Minimumbedrag per beurt €45.</p>
+</div></section>
+
+<section id="werkwijze"><div class="wrap">
+  <div class="head"><div><span class="kicker">Zo werkt het</span><h2>Van aanvraag tot factuur.</h2></div></div>
+  <div class="steps">
+    <div class="step"><h3>Aanvraag</h3><p><!--G-->Stuur een paar foto's via het formulier of WhatsApp.<!--/G--><!--P-->Bereken je prijs online of stuur een paar foto's.<!--/P--></p></div>
+    <div class="step"><h3>Prijs binnen 48 uur</h3><p>Voor klusjes komen we eerst kijken. Gratis en zonder verplichting.</p></div>
+    <div class="step"><h3>Uitvoering op je ronde</h3><p>We werken per gemeente op vaste dagen. Zo blijft de prijs laag.</p></div>
+    <div class="step"><h3>Factuur achteraf</h3><p>Betalen via overschrijving of Payconiq, pas als je tevreden bent.</p></div>
+  </div>
+</div></section>
+
+<section id="resultaten" class="alt"><div class="wrap">
+  <div class="head"><div><span class="kicker">Voor en na</span><h2>Sleep en vergelijk.</h2></div><p class="lead">Na elke klus komen er nieuwe foto's bij. De zaakvoerder voegt ze zelf toe vanaf zijn gsm.</p></div>
+  <div class="ba-wrap">
+    <div class="ba" id="ba" style="--p:46%">
+      <canvas id="baA"></canvas><canvas id="baB" class="before"></canvas>
+      <span class="tag" style="left:14px">Voor</span><span class="tag" style="right:14px">Na</span>
+      <span class="bar"></span><span class="knob"><svg><use href="#lr"/></svg></span>
+      <input id="baR" type="range" min="0" max="100" value="46" aria-label="Schuif tussen voor en na">
+    </div>
+    <div class="jobs" id="jobs">
+      <button class="job" aria-pressed="true" data-job="terrace"><b>Terras, 45 m²</b><span>Sinaai · warm water en anti-mos</span></button>
+      <button class="job" aria-pressed="false" data-job="wall"><b>Voorgevel, rijwoning</b><span>Belsele · groene aanslag verwijderd</span></button>
+      <button class="job" aria-pressed="false" data-job="pane"><b>Ramen, eerste beurt</b><span>Temse · daarna elke 8 weken</span></button>
+    </div>
+  </div>
+</div></section>
+
+<!--P-->
+<section id="prijs"><div class="wrap">
+  <div class="head"><div><span class="kicker">Prijscalculator</span><h2>Reken het zelf uit.</h2></div><p class="lead">De klant ziet meteen een eerlijke richtprijs, regel per regel, zoals op een echte werkbon. Klopt het, dan boekt hij meteen.</p></div>
+  <div class="calc">
+    <div class="in">
+      <div class="row2">
+        <div class="grp"><span>Aantal ramen</span><div class="stepper" data-k="ramen" data-step="1" data-min="0" data-max="60"><button aria-label="Minder ramen">−</button><output class="num">12</output><button aria-label="Meer ramen">+</button></div></div>
+        <div class="grp"><span>Kant</span><div class="chipset" data-g="kant"><button class="chip" aria-pressed="false" data-v="buiten">Buiten</button><button class="chip" aria-pressed="true" data-v="beide">Binnen + buiten</button></div></div>
+      </div>
+      <div class="grp"><span>Woning</span><div class="chipset" data-g="hoog"><button class="chip" aria-pressed="false" data-v="0">Gelijkvloers</button><button class="chip" aria-pressed="true" data-v="0.15">1 verdieping</button><button class="chip" aria-pressed="false" data-v="0.3">2 of meer</button></div></div>
+      <div class="row2">
+        <div class="grp"><label class="toggle"><input type="checkbox" id="cT" checked> Terras reinigen</label><div class="stepper" data-k="terras" data-step="5" data-min="5" data-max="200" data-u=" m²"><button aria-label="Minder m²">−</button><output class="num">30 m²</output><button aria-label="Meer m²">+</button></div></div>
+        <div class="grp"><label class="toggle"><input type="checkbox" id="cD"> Dakgoten leegmaken</label><div class="stepper" data-k="goot" data-step="2" data-min="4" data-max="80" data-u=" m"><button aria-label="Minder meter">−</button><output class="num">16 m</output><button aria-label="Meer meter">+</button></div></div>
+      </div>
+      <div class="grp"><span>Hoe vaak?</span><div class="chipset" data-g="freq"><button class="chip" aria-pressed="false" data-v="0">Eenmalig</button><button class="chip" aria-pressed="true" data-v="0.1">Elke 8 weken, −10%</button><button class="chip" aria-pressed="false" data-v="0.15">Elke 4 weken, −15%</button></div></div>
+    </div>
+    <div class="bon">
+      <h3>Raming <small>nr. 2026-1043</small></h3>
+      <div class="lines" id="lines"></div>
+      <div class="tot"><span id="totlbl">Per beurt, incl. btw</span><b id="tot">€0</b></div>
+      <p class="fine">Richtprijs. Na een eerste beurt ligt de prijs vast. Voorrijden binnen het Waasland is gratis.</p>
+      <a class="btn brick" href="#boeken">Boek deze prijs<svg><use href="#arrow"/></svg></a>
+    </div>
+  </div>
+</div></section>
+
+<section id="abonnement" class="alt"><div class="wrap">
+  <div class="head"><div><span class="kicker">Abonnement ramenwassen</span><h2>Eén keer afspreken. Daarna nooit meer.</h2></div><p class="lead">Twee dagen voor je beurt krijg je een sms. Ben je er niet, dan doen we gewoon de buitenkant. Opzeggen kan altijd, zonder kosten.</p></div>
+  <div class="tarief">
+    <div class="trow" style="grid-template-columns:1.2fr 1.4fr auto"><div><h3>Los</h3><p>Wanneer jij wil</p></div><ul><li>Online boeken op je ronde-dag</li><li>Volle prijs per beurt</li></ul><div class="price"><small>korting</small><b>0%</b></div></div>
+    <div class="trow" style="grid-template-columns:1.2fr 1.4fr auto"><div><h3>Elke 8 weken</h3><p>Gekozen door de meeste particulieren</p></div><ul><li>Vaste dag, sms-herinnering</li><li>Dakgoten één keer per jaar −20%</li></ul><div class="price"><small>korting per beurt</small><b>−10%</b></div></div>
+    <div class="trow" style="grid-template-columns:1.2fr 1.4fr auto"><div><h3>Elke 4 weken</h3><p>Voor handelszaken en kantoren</p></div><ul><li>Etalage altijd blinkend</li><li>Eén maandfactuur</li></ul><div class="price"><small>korting per beurt</small><b>−15%</b></div></div>
+  </div>
+</div></section>
+
+<section id="boeken"><div class="wrap">
+  <div class="head"><div><span class="kicker">Online boeken</span><h2>Kies een dag op jouw ronde.</h2></div><p class="lead">Kies je gemeente: alleen de dagen dat we in de buurt zijn, staan open. De afspraak komt meteen in het dashboard van de zaakvoerder.</p></div>
+  <div class="book">
+    <div class="cal">
+      <label class="field" for="gem" style="max-width:320px">Gemeente<select id="gem"></select></label>
+      <div>
+        <div class="days" id="dows"></div>
+        <div class="days" id="days" style="margin-top:8px"></div>
+      </div>
+      <div class="legend"><span><i style="background:var(--ok)"></i>Ronde in jouw buurt</span><span><i style="background:var(--line)"></i>Andere gemeente of volzet</span></div>
+      <div class="chipset" data-g="slot"><button class="chip" aria-pressed="true" data-v="Voormiddag, 8u tot 12u">Voormiddag</button><button class="chip" aria-pressed="false" data-v="Namiddag, 13u tot 17u">Namiddag</button></div>
+      <form class="bform" id="bf">
+        <label class="field" for="bn">Naam<input id="bn" autocomplete="name" required value="Sofie Peeters"></label>
+        <label class="field" for="bt">Gsm<input id="bt" autocomplete="tel" required value="0478 12 34 56"></label>
+        <label class="field full" for="badr">Adres<input id="badr" autocomplete="street-address" required value="Kokkelbeekstraat 12"></label>
+        <button class="btn brick full" type="submit">Bevestig afspraak<svg><use href="#arrow"/></svg></button>
+      </form>
+    </div>
+    <aside class="ticket" aria-live="polite">
+      <h3>Jouw afspraak</h3>
+      <dl id="sum"></dl>
+      <div class="notice" id="conf" hidden><b>Afspraak vastgelegd.</b> In de echte site krijgt de klant nu een bevestiging per mail en sms, en staat de afspraak in het dashboard. (demo)</div>
+    </aside>
+  </div>
+</div></section>
+<!--/P-->
+
+<section id="reviews"<!--P--> class="alt"<!--/P-->><div class="wrap">
+  <div class="rev">
+    <blockquote>
+      <span class="kicker">Reviews</span>
+      <p>"Ons terras lag er groen en glad bij, de kinderen gleden erover uit. Twee dagen later stond hier een ander terras. Hij heeft zelfs de voegen opnieuw ingeveegd zonder dat we erom vroegen."</p>
+      <footer><b>Kristof en Leen</b> · Sinaai · terrasreiniging</footer>
+    </blockquote>
+    <div>
+      <div class="score">
+        <div class="big"><b class="num">4,9</b><div><div class="stars" aria-label="5 sterren">★★★★★</div><span style="color:var(--muted);font-size:14px">87 reviews op Google</span></div></div>
+        <div class="dist">
+          <div><span>5</span><i><span style="width:91%"></span></i><span class="num">79</span></div>
+          <div><span>4</span><i><span style="width:7%"></span></i><span class="num">6</span></div>
+          <div><span>3</span><i><span style="width:2%"></span></i><span class="num">2</span></div>
+          <div><span>2</span><i><span style="width:0%"></span></i><span class="num">0</span></div>
+          <div><span>1</span><i><span style="width:0%"></span></i><span class="num">0</span></div>
+        </div>
+      </div>
+      <div class="minis">
+        <div><p>"Komt nu elke acht weken. Ik moet er niet meer aan denken, de sms komt vanzelf."</p><small>Nadia · Temse</small></div>
+        <div><p>"Laminaat in twee slaapkamers, plinten mooi afgekit. Netjes opgeruimd ook."</p><small>Jan · Beveren</small></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!--G-->
+<section id="offerte" class="alt"><div class="wrap">
+  <div class="quote">
+    <div>
+      <span class="kicker">Gratis offerte</span>
+      <h2>Stuur een foto. Krijg een prijs.</h2>
+      <p class="lead" style="margin-top:18px">Voor ramen, terras en gevels is een plaatsbezoek meestal niet nodig.</p>
+      <div class="promise">
+        <div><svg viewBox="0 0 28 28"><rect x="3" y="7" width="22" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="14" cy="15" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 7l1.5-3h5L18 7" fill="none" stroke="currentColor" stroke-width="2"/></svg><div><b>Twee of drie foto's volstaan</b><p>Liefst van op een paar meter afstand.</p></div></div>
+        <div><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 8v6l4 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><div><b>Antwoord binnen 48 uur</b><p>Een vaste prijs, geen "vanaf".</p></div></div>
+        <div><svg viewBox="0 0 28 28"><path d="M5 6h18v12H12l-5 4v-4H5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><div><b>Liever WhatsApp?</b><p>Stuur je foto's naar <span style="user-select:all;font-weight:650;color:var(--ink)">0470 12 34 56</span>.</p></div></div>
+      </div>
+    </div>
+    <form class="qform" id="qf">
+      <div class="field full"><span>Wat mogen we doen?</span><div class="chipset" data-g="dienst" data-multi="1"><button class="chip" aria-pressed="false" type="button">Ramen</button><button class="chip" aria-pressed="true" type="button">Terras</button><button class="chip" aria-pressed="false" type="button">Dakgoten</button><button class="chip" aria-pressed="false" type="button">Gevel</button><button class="chip" aria-pressed="false" type="button">Klusje</button></div></div>
+      <label class="field" for="qn">Naam<input id="qn" autocomplete="name" required value="Sofie Peeters"></label>
+      <label class="field" for="qg">Gemeente<input id="qg" required value="Sint-Niklaas"></label>
+      <label class="field" for="qt">Gsm<input id="qt" autocomplete="tel" required value="0478 12 34 56"></label>
+      <label class="field" for="qe">E-mail<input id="qe" type="email" autocomplete="email" value="sofie.peeters@telenet.be"></label>
+      <label class="field full" for="qm">Kort uitgelegd<textarea id="qm" rows="3">Terras achteraan, ongeveer 40 m². Veel mos tussen de voegen, tegels zijn glad.</textarea></label>
+      <div class="field full"><span>Foto's</span>
+        <div class="drop" id="drop">
+          <label for="qf-files">Sleep foto's hierheen of <u>kies op je gsm</u></label>
+          <input id="qf-files" type="file" accept="image/*" multiple hidden>
+          <div class="thumbs" id="thumbs"></div>
+        </div>
+      </div>
+      <button class="btn brick full" type="submit">Vraag mijn prijs aan<svg><use href="#arrow"/></svg></button>
+      <div class="notice full" id="qok" hidden><b>Aanvraag verstuurd.</b> Je krijgt binnen 48 uur een prijs. (demo)</div>
+    </form>
+  </div>
+</div></section>
+<!--/G-->
+
+<section id="werkgebied"><div class="wrap">
+  <div class="area">
+    <div>
+      <span class="kicker">Werkgebied</span>
+      <h2>Vaste rondes in het Waasland.</h2>
+      <p class="lead" style="margin:18px 0 28px">We werken per gemeente op vaste dagen. Minder rijden, dus een lagere prijs voor jou.</p>
+      <table class="rondes" id="rondes"></table>
+    </div>
+    <svg class="map" viewBox="0 0 420 320" role="img" aria-label="Kaart van het werkgebied rond Sint-Niklaas" id="map"></svg>
+  </div>
+</div></section>
+
+<!--G-->
+<section id="social" class="alt"><div class="wrap">
+  <div class="head"><div><span class="kicker">Inbegrepen: huisstijl en social media</span><h2>Vier templates, klaar om te posten.</h2></div><p class="lead">Gemaakt in Canva in de kleuren en letters van het logo. Foto en tekst wisselen, posten op Instagram en Facebook. Geen ontwerper meer nodig.</p></div>
+  <div class="posts" id="posts"></div>
+</div></section>
+<!--/G-->
+
+<!--P-->
+<section id="dashboard" class="alt"><div class="wrap">
+  <div class="head"><div><span class="kicker">Alleen voor de zaakvoerder</span><h2>Alles op één scherm.</h2></div><p class="lead">Aanvragen, afspraken per ronde, abonnementen en facturen. Werkt ook op de gsm in de bestelwagen.</p></div>
+  <div class="dash">
+    <div class="top"><span><b>DuoFix Service</b> · Dashboard</span><span>Woensdag 21 oktober</span></div>
+    <div class="body">
+      <nav><span class="on">Overzicht</span><span>Aanvragen <em>7</em></span><span>Planning</span><span>Abonnementen</span><span>Klanten</span><span>Facturen</span><span>Foto's voor/na</span></nav>
+      <main>
+        <div class="kpis">
+          <div class="kpi"><small>Nieuwe aanvragen</small><b>7</b><span class="d">+3 sinds gisteren</span></div>
+          <div class="kpi"><small>Beurten deze week</small><b>31</b><span class="d">4 rondes</span></div>
+          <div class="kpi"><small>Vaste klanten</small><b>124</b><span class="d">+9 deze maand</span></div>
+          <div class="kpi"><small>Omzet oktober</small><b>€7.260</b><span class="d">+12% t.o.v. sept.</span></div>
+        </div>
+        <div class="tbl"><table>
+          <thead><tr><th>Klant</th><th>Werk</th><th>Gemeente</th><th>Ronde</th><th style="text-align:right">Bedrag</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Sofie Peeters</td><td>12 ramen + terras 30 m²</td><td>Sint-Niklaas</td><td>Ma 26/10</td><td class="r">€218</td><td><span class="pill n">Nieuw</span></td></tr>
+            <tr><td>Bakkerij Van Hecke</td><td>Etalage, elke 4 weken</td><td>Temse</td><td>Di 27/10</td><td class="r">€41</td><td><span class="pill p">Ingepland</span></td></tr>
+            <tr><td>Marc Janssens</td><td>Dakgoten 18 m</td><td>Beveren</td><td>Wo 28/10</td><td class="r">€108</td><td><span class="pill p">Ingepland</span></td></tr>
+            <tr><td>Leen Verhulst</td><td>Laminaat 2 kamers</td><td>Belsele</td><td>Plaatsbezoek</td><td class="r">€1.240</td><td><span class="pill n">Offerte</span></td></tr>
+            <tr><td>Nadia Bouzid</td><td>Ramen, elke 8 weken</td><td>Temse</td><td>Di 20/10</td><td class="r">€62</td><td><span class="pill d">Betaald</span></td></tr>
+          </tbody>
+        </table></div>
+      </main>
+    </div>
+  </div>
+</div></section>
+
+<section id="huisstijl"><div class="wrap">
+  <div class="head"><div><span class="kicker">Inbegrepen: volledige huisstijl</span><h2>Herkenbaar, ook als hij rijdt.</h2></div><p class="lead">Logo, kleuren en letters die overal terugkomen: op de bestelwagen, de werkkledij, het visitekaartje en tien social media templates.</p></div>
+  <div class="kit">
+    <figure class="k-van"><div class="v">
+      <svg class="vansvg" viewBox="0 0 520 230" aria-label="Bestelwagen met belettering">
+        <ellipse cx="260" cy="212" rx="240" ry="8" fill="currentColor" opacity=".08"/>
+        <path d="M24 186 V78 Q24 54 48 52 L356 46 Q380 46 394 64 L440 124 Q490 130 500 150 L502 186 Z" fill="#0f2238"/>
+        <path d="M368 56 Q382 56 390 68 L428 122 H372 Z" fill="#8fb6d3"/>
+        <path d="M374 62 L392 88" stroke="#fff" stroke-width="3" opacity=".5"/>
+        <rect x="372" y="128" width="16" height="4" rx="2" fill="#5c6f84"/>
+        <path d="M24 158 H502 V170 H24 Z" fill="#a8432b"/>
+        <line x1="356" y1="52" x2="356" y2="186" stroke="#22384f" stroke-width="2"/>
+        <g transform="translate(46,74)"><rect width="34" height="34" rx="3" fill="#e8eef2"/><rect x="4" y="4" width="11" height="11" fill="#0f2238" opacity=".25"/><rect x="19" y="4" width="11" height="11" fill="#8fb6d3"/><rect x="4" y="19" width="11" height="11" fill="#0f2238" opacity=".25"/><rect x="19" y="19" width="11" height="11" fill="#0f2238" opacity=".25"/></g>
+        <text x="92" y="104" fill="#e8eef2" style="font-family:var(--display);font-stretch:125%;font-weight:850;font-size:34px;letter-spacing:.5px">DUOFIX</text>
+        <text x="48" y="132" fill="#9cb0c2" style="font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:2px">SERVICE · RAMEN · GEVELS · KLUSJES</text>
+        <text x="48" y="153" fill="#e8eef2" style="font-family:var(--display);font-stretch:112%;font-weight:800;font-size:17px">0470 12 34 56 · duofixservice.be</text>
+        <circle cx="110" cy="186" r="25" fill="#1b1f24"/><circle cx="110" cy="186" r="11" fill="#9aa3ab"/>
+        <circle cx="420" cy="186" r="25" fill="#1b1f24"/><circle cx="420" cy="186" r="11" fill="#9aa3ab"/>
+        <rect x="490" y="146" width="10" height="8" rx="2" fill="#f3d27a"/>
+        <path d="M60 52 L300 47" stroke="#9aa3ab" stroke-width="5" stroke-linecap="round"/>
+        <path d="M80 44 L80 52 M280 40 L280 48" stroke="#9aa3ab" stroke-width="3"/>
+      </svg></div><figcaption>Belettering bestelwagen <span>ladder op het dak inbegrepen</span></figcaption></figure>
+    <figure class="k-card"><div class="v"><div class="stack">
+      <div class="bcard b"><b style="font-size:13px">Pieter De Smet</b>Zaakvoerder<br>0470 12 34 56<br>info@duofixservice.be<br>BE 0712.345.678</div>
+      <div class="bcard f"><svg style="width:28px;height:28px;color:#e8eef2"><use href="#mark"/></svg><div><b>DuoFix</b><br><small>Service · Ramen · Gevels</small></div></div>
+    </div></div><figcaption>Visitekaartje <span>voor en achter</span></figcaption></figure>
+    <figure class="k-polo"><div class="v">
+      <svg viewBox="0 0 200 190" style="width:190px;max-width:100%" aria-label="Werkpolo">
+        <path d="M70 18 L40 30 L10 62 L30 86 L48 74 V176 H152 V74 L170 86 L190 62 L160 30 L130 18 Q100 40 70 18 Z" fill="#0f2238"/>
+        <path d="M70 18 Q100 40 130 18 L120 14 Q100 30 80 14 Z" fill="#1d3550"/>
+        <path d="M100 30 V58" stroke="#22384f" stroke-width="3"/>
+        <circle cx="100" cy="42" r="2.5" fill="#9cb0c2"/><circle cx="100" cy="52" r="2.5" fill="#9cb0c2"/>
+        <g transform="translate(118,56)"><rect width="16" height="16" rx="2" fill="#e8eef2"/><rect x="9" y="2" width="5" height="5" fill="#8fb6d3"/></g>
+        <text x="138" y="68" fill="#e8eef2" style="font-family:var(--display);font-stretch:125%;font-weight:850;font-size:8px">DUOFIX</text>
+        <path d="M48 160 H152" stroke="#a8432b" stroke-width="6"/>
+      </svg></div><figcaption>Werkkledij <span>polo en softshell</span></figcaption></figure>
+    <figure class="k-swatch"><div class="v"><div class="swatches">
+      <div style="background:#0f2238;color:#e8eef2">Ruitblauw<small>#0F2238</small></div>
+      <div style="background:#8fb6d3;color:#0f2238">Glas<small>#8FB6D3</small></div>
+      <div style="background:#a8432b;color:#fff">Baksteen<small>#A8432B</small></div>
+      <div style="background:#3c464f;color:#e8eef2">Arduin<small>#3C464F</small></div>
+    </div></div><figcaption>Kleuren <span>uit de straat zelf</span></figcaption></figure>
+    <figure class="k-social"><div class="v" style="padding:20px"><div class="posts" id="posts" style="grid-template-columns:1fr 1fr;gap:10px;width:100%"></div></div><figcaption>Social media <span>10 templates</span></figcaption></figure>
+  </div>
+</div></section>
+<!--/P-->
+
+</div>
+
+<div data-view="page" hidden><div class="wrap" id="page"></div></div>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <div style="display:grid;gap:16px;align-content:start">
+    <a class="logo" href="#top"><svg style="color:var(--band-fg)"><use href="#mark"/></svg><span><b>DuoFix</b><small>Service · Ramen · Gevels · Klusjes</small></span></a>
+    <p style="max-width:34ch">Eén vaste vakman voor propere ramen, frisse gevels en de klusjes die blijven liggen.</p>
+  </div>
+  <div><h4>Diensten</h4><ul id="fsvc"></ul></div>
+  <div><h4>Werkgebied</h4><ul id="ftown"></ul></div>
+  <div><h4>Contact</h4><ul><li style="user-select:all">0470 12 34 56</li><li style="user-select:all">info@duofixservice.be</li><li>Sint-Niklaas</li><li><a href="https://instagram.com">Instagram</a> · <a href="https://facebook.com">Facebook</a></li></ul></div>
+  <div class="legal"><span>© 2026 DuoFix Service · BE 0712.345.678</span><span>Privacy · Algemene voorwaarden</span></div>
+</div></footer>
+
+<script>
+{{ART}}
+{{JS}}
+</script>

@@ -1,0 +1,1095 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>DuoFix Service Pro</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Instrument+Sans:wght@400..700&display=swap">
+<style>/* Layout: bestelwagen-belettering als typografie (breed, kapitalen), Vlaamse rijwoning als hoofdbeeld, prijslijst zoals een vakman ze hanteert, rondes per gemeente */
+:root{
+  --paper:#edf1f3; --surface:#ffffff; --ink:#0f2238; --muted:#5a6879; --line:#d1dae0;
+  --sky:#8fb6d3; --brick:#a8432b; --brick-fg:#ffffff; --band:#0f2238; --band-fg:#e8eef2; --band-muted:#9cb0c2; --band-line:#22384f;
+  --ok:#2c7a4b; --warn:#b07b12;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0b131a; --surface:#111c26; --ink:#e6edf2; --muted:#93a4b3; --line:#213140;
+  --sky:#6c9cc1; --brick:#d0674c; --brick-fg:#1a0703; --band:#070e15; --band-fg:#e6edf2; --band-muted:#8296a9; --band-line:#1a2a3a;
+  --ok:#5bbf86; --warn:#e0a83a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0b131a; --surface:#111c26; --ink:#e6edf2; --muted:#93a4b3; --line:#213140;
+  --sky:#6c9cc1; --brick:#d0674c; --brick-fg:#1a0703; --band:#070e15; --band-fg:#e6edf2; --band-muted:#8296a9; --band-line:#1a2a3a;
+  --ok:#5bbf86; --warn:#e0a83a; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--band)}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+h1{font-family:var(--display);font-stretch:118%;font-weight:850;text-transform:uppercase;font-size:clamp(42px,7.2vw,92px);line-height:.9;letter-spacing:-.015em}
+h2{font-family:var(--display);font-stretch:108%;font-weight:780;font-size:clamp(30px,4.2vw,50px);line-height:1;letter-spacing:-.02em}
+h3{font-family:var(--display);font-stretch:105%;font-weight:720;font-size:22px;line-height:1.15;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2.5px solid var(--sky);outline-offset:2px}
+.kicker{font-size:12.5px;font-weight:650;text-transform:uppercase;letter-spacing:.14em;color:var(--brick);margin-bottom:14px;display:block}
+.lead{color:var(--muted);font-size:18px;max-width:58ch}
+.num{font-variant-numeric:tabular-nums}
+.demo{background:var(--paper);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.demo .wrap{display:flex;justify-content:space-between;gap:12px;padding-block:6px;flex-wrap:wrap}
+.demo b{color:var(--ink)}
+.util{background:var(--band);color:var(--band-muted);font-size:13.5px}
+.util .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:9px;flex-wrap:wrap}
+.util ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.util li::before{content:"";display:inline-block;width:6px;height:6px;background:var(--sky);margin-right:8px;vertical-align:2px}
+.util .tel{color:var(--band-fg);font-weight:650;letter-spacing:.02em;user-select:all}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+.logo svg{width:38px;height:38px;flex:none}
+.logo b{font-family:var(--display);font-stretch:125%;font-weight:850;font-size:21px;letter-spacing:.01em;text-transform:uppercase;line-height:1}
+.logo small{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:3px;font-weight:600}
+.links{display:flex;gap:26px;align-items:center}
+.links a{text-decoration:none;font-weight:550;font-size:15px;color:var(--muted)}
+.links a:hover,.links a[aria-current="page"]{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:4px;font:inherit;font-weight:650;font-size:15.5px;text-decoration:none;border:0;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.btn:active{transform:translateY(1px)}
+.btn.brick{background:var(--brick);color:var(--brick-fg)}
+.btn.ink{background:var(--ink);color:var(--paper)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn svg{width:18px;height:18px}
+/* hero */
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:end;padding-block:56px 72px}
+.hero h1 .thin{display:block;font-weight:350;font-stretch:118%;color:var(--muted)}
+.hero .lead{margin:26px 0 30px}
+.checks{display:flex;flex-wrap:wrap;gap:10px 22px;margin:0 0 30px;padding:0;list-style:none;font-weight:550;font-size:15px}
+.checks li{display:flex;gap:8px;align-items:center}
+.checks svg{width:18px;height:18px;color:var(--ok);flex:none}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.house{position:relative;max-width:100%}
+.house .frame{position:relative;aspect-ratio:320/384;max-width:100%;background:#7a5a4c;overflow:hidden;border-radius:2px;box-shadow:0 30px 60px -30px rgba(15,34,56,.55)}
+.house canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.house canvas.grime{cursor:crosshair;touch-action:none}
+.house figcaption{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:14px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+.meter{display:flex;align-items:center;gap:10px;font-weight:650;color:var(--ink)}
+.meter i{display:block;width:120px;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.meter i span{display:block;height:100%;width:0;background:var(--ok);transition:width .3s ease}
+.done-msg{color:var(--ok);font-weight:650}
+section{padding-block:88px}
+.alt{background:var(--surface);border-block:1px solid var(--line)}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:44px}
+/* prijslijst */
+.tarief{border-top:2px solid var(--ink)}
+.trow{display:grid;grid-template-columns:132px 1.3fr 1fr auto;gap:28px;align-items:center;padding-block:22px;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.trow:hover h3{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.trow canvas{width:132px;aspect-ratio:1/.62;display:block;border-radius:2px;max-width:100%}
+.trow p{color:var(--muted);font-size:15.5px;margin-top:4px}
+.trow ul{list-style:none;margin:0;padding:0;font-size:14.5px;color:var(--muted);display:grid;gap:2px}
+.price{text-align:right;white-space:nowrap}
+.price small{display:block;font-size:12.5px;color:var(--muted)}
+.price b{font-family:var(--display);font-stretch:110%;font-weight:750;font-size:24px}
+.tnote{font-size:13.5px;color:var(--muted);margin-top:16px}
+/* werkwijze */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s;border-top:1px solid var(--line)}
+.step{padding:26px 24px 0 0;border-right:1px solid var(--line);margin-right:24px;min-width:0}
+.step:last-child{border-right:0;margin-right:0}
+.step::before{counter-increment:s;content:counter(s,decimal-leading-zero);font-family:var(--display);font-stretch:118%;font-weight:300;font-size:40px;line-height:1;color:var(--brick);display:block;margin-bottom:18px}
+.step p{color:var(--muted);font-size:15px;margin-top:8px}
+/* voor/na */
+.ba-wrap{display:grid;grid-template-columns:1fr 280px;gap:40px;align-items:start}
+.ba{position:relative;aspect-ratio:1/.62;max-width:100%;overflow:hidden;border-radius:2px;user-select:none;touch-action:pan-y;background:#888}
+.ba canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ba .before{clip-path:inset(0 calc(100% - var(--p,50%)) 0 0)}
+.ba .tag{position:absolute;bottom:14px;padding:5px 10px;background:rgba(10,20,30,.72);color:#fff;font-size:12px;font-weight:650;letter-spacing:.12em;text-transform:uppercase;border-radius:2px}
+.ba .bar{position:absolute;top:0;bottom:0;left:var(--p,50%);width:2px;background:#fff;transform:translateX(-1px);box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.ba .knob{position:absolute;top:50%;left:var(--p,50%);width:46px;height:46px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.ba .knob svg{width:22px;height:22px;color:#0f2238}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:ew-resize}
+.jobs{display:grid;gap:0;border-top:1px solid var(--line)}
+.job{all:unset;cursor:pointer;display:grid;gap:3px;padding:16px 0;border-bottom:1px solid var(--line)}
+.job b{font-weight:650}
+.job span{font-size:14px;color:var(--muted)}
+.job[aria-pressed="true"] b{color:var(--brick)}
+.job[aria-pressed="true"] b::before{content:"";display:inline-block;width:8px;height:8px;background:var(--brick);margin-right:10px;vertical-align:1px}
+.job:focus-visible{outline:2.5px solid var(--sky)}
+/* reviews */
+.rev{display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start}
+blockquote{margin:0}
+blockquote p{font-family:var(--display);font-stretch:100%;font-weight:500;font-size:clamp(24px,2.8vw,34px);line-height:1.2;letter-spacing:-.01em;text-wrap:pretty}
+blockquote footer{margin-top:22px;color:var(--muted);font-size:15px}
+blockquote footer b{color:var(--ink)}
+.score{display:grid;gap:10px}
+.score .big{display:flex;align-items:baseline;gap:12px}
+.score .big b{font-family:var(--display);font-stretch:118%;font-weight:800;font-size:64px;line-height:1}
+.stars{color:#e0a321;letter-spacing:2px}
+.dist{display:grid;gap:6px;margin-top:6px}
+.dist div{display:grid;grid-template-columns:22px 1fr 28px;gap:10px;align-items:center;font-size:13.5px;color:var(--muted)}
+.dist i{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.dist i span{display:block;height:100%;background:#e0a321}
+.minis{display:grid;gap:18px;margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.minis p{font-size:15.5px}
+.minis small{color:var(--muted)}
+/* formulieren */
+.field{display:grid;gap:7px;font-weight:600;font-size:14px}
+input,select,textarea{font:inherit;font-weight:450;font-size:15.5px;padding:12px 13px;border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);width:100%}
+textarea{resize:vertical}
+.notice{background:color-mix(in srgb,var(--ok) 12%,var(--surface));border:1px solid color-mix(in srgb,var(--ok) 35%,transparent);border-radius:4px;padding:14px 16px;font-size:15px}
+.notice b{color:var(--ok)}
+/* werkgebied */
+.area{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
+.map{width:100%;height:auto;display:block;max-width:100%}
+.map .river{fill:none;stroke:var(--sky);stroke-width:9;stroke-linecap:round;opacity:.55}
+.map .ring{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:4 6}
+.map .road{fill:none;stroke:var(--line);stroke-width:2}
+.map circle.t{fill:var(--surface);stroke:var(--ink);stroke-width:2}
+.map circle.home{fill:var(--brick);stroke:none}
+.map text{font-family:var(--body);font-size:12.5px;font-weight:600;fill:var(--ink)}
+.map text.s{font-size:10.5px;fill:var(--muted);font-weight:500;letter-spacing:.06em}
+.map a:hover circle.t,.map a:focus circle.t{fill:var(--brick);stroke:var(--brick)}
+.rondes{width:100%;border-collapse:collapse;font-size:15px}
+.rondes th{text-align:left;font-weight:650;padding:12px 16px 12px 0;vertical-align:top;white-space:nowrap;width:110px}
+.rondes td{padding:12px 0;color:var(--muted)}
+.rondes tr{border-bottom:1px solid var(--line)}
+.rondes a{color:var(--ink);text-decoration-color:var(--line);text-underline-offset:3px}
+/* footer */
+.foot{background:var(--band);color:var(--band-muted);font-size:14.5px}
+.foot .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-block:56px 28px}
+.foot h4{color:var(--band-fg);font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;font-weight:650}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.foot a{color:inherit;text-decoration:none}
+.foot a:hover{color:var(--band-fg)}
+.foot .logo{color:var(--band-fg)}
+.foot .logo small{color:var(--band-muted)}
+.foot .legal{grid-column:1/-1;border-top:1px solid var(--band-line);padding-top:20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px}
+/* dienstpagina */
+.crumbs{font-size:14px;color:var(--muted);padding-top:28px}
+.crumbs a{color:var(--muted)}
+.crumbs code{font-size:12.5px;margin-left:10px;padding:2px 7px;border:1px solid var(--line);border-radius:3px}
+.svc-hero{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;padding-block:36px 72px}
+.svc-hero h1{font-size:clamp(36px,4.6vw,60px)}
+.incl{list-style:none;margin:26px 0 30px;padding:0;display:grid;gap:10px}
+.incl li{display:flex;gap:10px;align-items:baseline}
+.incl li::before{content:"";flex:none;width:8px;height:8px;background:var(--brick);transform:translateY(-2px)}
+.pricebox{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-block:18px;border-block:1px solid var(--line);margin-bottom:26px}
+.pricebox b{font-family:var(--display);font-stretch:112%;font-weight:800;font-size:34px}
+.pricebox span{color:var(--muted);font-size:14.5px}
+.single{aspect-ratio:1/.62;max-width:100%;border-radius:2px;overflow:hidden}
+.single canvas{width:100%;height:100%;display:block}
+.faq{max-width:780px}
+.faq details{border-bottom:1px solid var(--line);padding-block:18px}
+.faq summary{cursor:pointer;font-weight:650;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::after{content:"+";font-family:var(--display);font-size:24px;line-height:1;color:var(--brick)}
+.faq details[open] summary::after{content:"−"}
+.faq details p{color:var(--muted);margin-top:10px;max-width:62ch}
+.others{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.others a{padding:10px 16px;border:1px solid var(--line);border-radius:4px;text-decoration:none;font-weight:600;font-size:15px;background:var(--surface)}
+@media (max-width:980px){
+  .hero .wrap,.head,.ba-wrap,.rev,.area,.svc-hero{grid-template-columns:1fr}
+  .hero .wrap{gap:40px;padding-block:40px 56px}
+  .house{max-width:460px}
+  .steps{grid-template-columns:1fr 1fr;row-gap:32px}
+  .step:nth-child(2){border-right:0;margin-right:0}
+  .trow{grid-template-columns:96px 1fr auto;gap:16px}
+  .trow canvas{width:96px}
+  .trow ul{display:none}
+  .foot .wrap{grid-template-columns:1fr 1fr}
+  .links a:not(.btn){display:none}
+  section{padding-block:64px}
+}
+@media (max-width:560px){
+  .steps{grid-template-columns:1fr}
+  .step{border-right:0;margin-right:0;padding-right:0}
+  .trow{grid-template-columns:1fr auto}
+  .trow canvas{display:none}
+  .util ul{display:none}
+  .foot .wrap{grid-template-columns:1fr}
+  .nav .btn{padding:0 14px}
+  .nav .btn span{display:none}
+}
+/* offerte met foto's (Groei) */
+.quote{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start}
+.qform{display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:28px}
+.qform .full{grid-column:1/-1}
+.drop{border:1.5px dashed var(--line);border-radius:4px;padding:18px;display:grid;gap:12px;background:var(--paper)}
+.drop.over{border-color:var(--brick)}
+.drop label{cursor:pointer;color:var(--muted);font-size:15px}
+.drop label u{color:var(--ink);font-weight:650}
+.thumbs{display:flex;gap:10px;flex-wrap:wrap}
+.thumbs figure{margin:0;width:84px}
+.thumbs canvas,.thumbs img{width:84px;height:62px;object-fit:cover;border-radius:2px;display:block}
+.thumbs figcaption{font-size:11.5px;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chipset{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:14.5px;font-weight:600;padding:9px 14px;border-radius:4px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.promise{display:grid;gap:22px;margin-top:30px}
+.promise>div{display:grid;grid-template-columns:44px 1fr;gap:14px}
+.promise svg{width:28px;height:28px;color:var(--brick)}
+.promise p{color:var(--muted);font-size:15px}
+/* social templates */
+.posts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.post{position:relative;aspect-ratio:1;max-width:100%;overflow:hidden;border-radius:3px;color:#fff;box-shadow:0 18px 40px -24px rgba(15,34,56,.5)}
+.post canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.post .ov{position:absolute;inset:0;padding:16px;display:flex;flex-direction:column;justify-content:space-between}
+.post .tg{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.post .big{font-family:var(--display);font-stretch:118%;font-weight:850;text-transform:uppercase;line-height:.92;font-size:clamp(20px,2.3vw,30px)}
+.post .ft{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;font-weight:650}
+.post .mk{width:22px;height:22px}
+.post.split .half{position:absolute;top:0;bottom:0;width:50%;overflow:hidden}
+.post.split .half canvas{width:200%}
+.post.split .half.r{right:0}
+.post.split .half.r canvas{left:-100%}
+.post.split .lbl{position:absolute;top:14px;font-size:10.5px;font-weight:700;letter-spacing:.14em;background:rgba(10,20,30,.7);padding:4px 7px}
+.post.plain{background:#0f2238}
+.post.cream{background:#f3f4f1;color:#0f2238}
+.post.brickbg{background:#a8432b}
+.post .q{font-family:var(--display);font-weight:500;font-size:clamp(15px,1.6vw,19px);line-height:1.2}
+.post .st{color:#e0a321;letter-spacing:2px;font-size:13px}
+.postnote{font-size:14px;color:var(--muted);margin-top:16px}
+/* calculator / werkbon (Pro) */
+.calc{display:grid;grid-template-columns:1.05fr .95fr;gap:0;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface)}
+.calc .in{padding:30px;display:grid;gap:24px;align-content:start}
+.grp{display:grid;gap:10px}
+.grp>span{font-weight:650;font-size:14px}
+.stepper{display:flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:4px;width:max-content;background:var(--paper)}
+.stepper button{all:unset;cursor:pointer;width:44px;height:44px;display:grid;place-items:center;font-size:20px;font-weight:600;color:var(--ink)}
+.stepper button:focus-visible{outline:2.5px solid var(--sky)}
+.stepper output{min-width:76px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums;border-inline:1px solid var(--line);line-height:44px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.toggle{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;cursor:pointer}
+.toggle input{width:20px;height:20px;accent-color:var(--brick)}
+.bon{background:var(--paper);border-left:1px dashed var(--line);padding:30px;display:grid;gap:14px;align-content:start;position:relative}
+.bon::before,.bon::after{content:"";position:absolute;left:-9px;width:16px;height:16px;border-radius:50%;background:var(--surface);border:1px solid var(--line)}
+.bon::before{top:-9px}.bon::after{bottom:-9px}
+.bon h3{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.bon h3 small{font-family:var(--body);font-size:12.5px;color:var(--muted);font-weight:500;font-stretch:100%}
+.lines{display:grid;gap:0;font-size:15px}
+.lines div{display:grid;grid-template-columns:1fr auto;gap:16px;padding-block:9px;border-bottom:1px dotted var(--line)}
+.lines span{color:var(--muted)}
+.lines b{font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.lines .disc b{color:var(--ok)}
+.tot{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-top:6px}
+.tot b{font-family:var(--display);font-stretch:112%;font-weight:850;font-size:46px;line-height:1;font-variant-numeric:tabular-nums}
+.tot span{font-size:13px;color:var(--muted)}
+.fine{font-size:13px;color:var(--muted)}
+/* boeken */
+.book{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:start}
+.cal{display:grid;gap:22px}
+.days{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.dow{font-size:12px;font-weight:650;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
+.day{all:unset;box-sizing:border-box;cursor:pointer;border:1px solid var(--line);border-radius:4px;background:var(--surface);padding:10px 6px 8px;display:grid;gap:2px;text-align:center;min-height:74px;align-content:start}
+.day b{font-family:var(--display);font-stretch:110%;font-weight:750;font-size:22px;line-height:1.1}
+.day small{font-size:11px;color:var(--muted);line-height:1.2}
+.day.on small{color:var(--ok);font-weight:650}
+.day[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.day[aria-pressed="true"] small{color:inherit;opacity:.8}
+.day:disabled{cursor:not-allowed;opacity:.38;background:transparent}
+.day:focus-visible{outline:2.5px solid var(--sky)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px;border-radius:2px}
+.bform{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bform .full{grid-column:1/-1}
+.ticket{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:26px;display:grid;gap:16px;position:sticky;top:96px}
+.ticket dl{margin:0;display:grid;gap:0}
+.ticket dl div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding-block:10px;border-bottom:1px solid var(--line);font-size:15px}
+.ticket dt{color:var(--muted)}
+.ticket dd{margin:0;font-weight:600}
+/* dashboard */
+.dash{background:var(--band);color:var(--band-fg);border-radius:6px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(7,14,21,.6)}
+.dash .top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--band-line);font-size:13.5px;color:var(--band-muted);flex-wrap:wrap}
+.dash .top b{color:var(--band-fg)}
+.dash .body{display:grid;grid-template-columns:200px 1fr;min-height:360px}
+.dash nav{border-right:1px solid var(--band-line);padding:18px 12px;display:grid;gap:4px;align-content:start;font-size:14px}
+.dash nav span{padding:8px 10px;border-radius:4px;color:var(--band-muted);display:flex;justify-content:space-between}
+.dash nav span.on{background:var(--band-line);color:var(--band-fg)}
+.dash nav em{font-style:normal;background:var(--brick);color:var(--brick-fg);font-size:11.5px;font-weight:700;padding:0 7px;border-radius:9px}
+.dash main{padding:20px;display:grid;gap:18px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{border:1px solid var(--band-line);border-radius:4px;padding:14px}
+.kpi small{color:var(--band-muted);font-size:12.5px}
+.kpi b{display:block;font-family:var(--display);font-stretch:110%;font-weight:750;font-size:26px;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:12px;color:#7fd3a1}
+.tbl{overflow-x:auto}
+.dash table{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
+.dash th{text-align:left;font-weight:600;color:var(--band-muted);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;border-bottom:1px solid var(--band-line)}
+.dash td{padding:12px 10px;border-bottom:1px solid var(--band-line)}
+.dash td.r{text-align:right;font-variant-numeric:tabular-nums}
+.pill{font-size:12px;font-weight:700;padding:3px 9px;border-radius:3px;white-space:nowrap}
+.pill.n{background:#e0a321;color:#1a1200}
+.pill.p{background:#2f5f86;color:#e6f0f7}
+.pill.d{background:var(--band-line);color:var(--band-muted)}
+/* huisstijl */
+.kit{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.kit figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden;display:grid;grid-template-rows:1fr auto;min-width:0}
+.kit figure .v{display:grid;place-items:center;padding:28px;min-height:240px;background:var(--paper)}
+.kit figcaption{padding:14px 18px;font-size:14.5px;display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line)}
+.kit figcaption span{color:var(--muted)}
+.k-van{grid-column:span 4}
+.k-card{grid-column:span 2}
+.k-polo,.k-swatch,.k-social{grid-column:span 2}
+.vansvg{width:100%;max-width:560px;height:auto}
+.bcard{width:220px;max-width:100%;aspect-ratio:85/55;border-radius:3px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 14px 30px -14px rgba(0,0,0,.35)}
+.bcard.f{background:#0f2238;color:#e8eef2;position:relative;z-index:2;transform:rotate(3deg) translate(-16px,22px)}
+.bcard.b{background:#f4f4f1;color:#0f2238;transform:rotate(-4deg) translate(18px,-26px);font-size:11.5px;line-height:1.5}
+.bcard.f b{font-family:var(--display);font-stretch:125%;font-weight:850;text-transform:uppercase;font-size:17px}
+.bcard.f small{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#9cb0c2}
+.stack{display:grid}
+.stack>*{grid-area:1/1}
+.swatches{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.swatches div{border-radius:3px;padding:10px;height:84px;display:flex;flex-direction:column;justify-content:flex-end;font-size:12px;font-weight:650}
+.swatches small{font-weight:500;opacity:.8;font-variant-numeric:tabular-nums}
+@media (max-width:980px){
+  .quote,.calc,.book{grid-template-columns:1fr}
+  .bon{border-left:0;border-top:1px dashed var(--line)}
+  .bon::before,.bon::after{display:none}
+  .posts{grid-template-columns:1fr 1fr}
+  .ticket{position:static}
+  .dash .body{grid-template-columns:1fr}
+  .dash nav{display:none}
+  .kpis{grid-template-columns:1fr 1fr}
+  .kit{grid-template-columns:1fr 1fr}
+  .k-van{grid-column:1/-1}
+  .k-card,.k-polo,.k-swatch,.k-social{grid-column:span 1}
+}
+@media (max-width:560px){
+  .qform,.bform,.row2{grid-template-columns:1fr}
+  .days{grid-template-columns:repeat(3,1fr)}
+  .dow{display:none}
+  .kit{grid-template-columns:1fr}
+  .k-card,.k-polo,.k-swatch,.k-social{grid-column:1/-1}
+  .calc .in,.bon,.qform{padding:20px}
+}
+
+.k-social .post .ov{padding:9px}.k-social .post .big{font-size:14px}.k-social .post .q{font-size:11px}
+.k-social .post .tg,.k-social .post .ft,.k-social .post.split .lbl{font-size:8px}.k-social .post .mk{width:14px;height:14px}.k-social .post .st{font-size:9px}
+</style>
+</head>
+<body>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 40 40">
+    <rect x="1.5" y="1.5" width="37" height="37" rx="3" fill="currentColor"/>
+    <rect x="6.5" y="6.5" width="12" height="12" fill="var(--paper)" opacity=".28"/>
+    <rect x="21.5" y="6.5" width="12" height="12" fill="var(--sky)"/>
+    <path d="M24 16.5 L31.5 9" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+    <rect x="6.5" y="21.5" width="12" height="12" fill="var(--paper)" opacity=".28"/>
+    <rect x="21.5" y="21.5" width="12" height="12" fill="var(--paper)" opacity=".28"/>
+  </symbol>
+  <symbol id="check" viewBox="0 0 20 20"><path d="M4 10.5l3.5 3.5L16 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arrow" viewBox="0 0 20 20"><path d="M4 10h11M11 5.5l4.5 4.5-4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="lr" viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="phone" viewBox="0 0 20 20"><path d="M6.6 2.8l2 3.6-1.5 1.6a10 10 0 004.9 4.9l1.6-1.5 3.6 2-.8 3a1.6 1.6 0 01-1.7 1.1A15.4 15.4 0 012.5 5.4 1.6 1.6 0 013.6 3.6z" fill="currentColor"/></symbol>
+</svg>
+
+<div class="demo"><div class="wrap"><span>Voorbeeldsite · <b>Pakket Pro</b></span><span>Prijzen en reviews zijn voorbeeldinhoud</span></div></div>
+<div class="util"><div class="wrap">
+  <ul><li>Gratis plaatsbezoek</li><li>BA-verzekerd</li><li>Ma tot za, 7u30 tot 18u</li></ul>
+  <span>Bel of WhatsApp <span class="tel">0470 12 34 56</span></span>
+</div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="logo" href="#top" aria-label="DuoFix Service, naar home"><svg><use href="#mark"/></svg><span><b>DuoFix</b><small>Service · Ramen · Gevels · Klusjes</small></span></a>
+  <nav class="links" aria-label="Hoofdmenu">
+    <a href="#diensten">Diensten</a>
+    <a href="#abonnement">Abonnement</a>
+    <a href="#werkgebied">Werkgebied</a>
+    <a href="#reviews">Reviews</a>
+    
+    <a class="btn brick" href="#boeken"><span>Boek online</span><svg><use href="#arrow"/></svg></a>
+  </nav>
+</div></header>
+
+<main id="top">
+<div data-view="home">
+
+<div class="hero"><div class="wrap">
+  <div>
+    <span class="kicker">Sint-Niklaas en het Waasland</span>
+    <h1>Weer helder<span class="thin">zicht.</span></h1>
+    <p class="lead">Ramen wassen, terras- en gevelreiniging, dakgoten en klusjeswerk. Eén vaste vakman die je bij naam kent, en een prijs die je vooraf weet.</p>
+    <ul class="checks">
+      <li><svg><use href="#check"/></svg>Osmosewater, geen strepen</li>
+      <li><svg><use href="#check"/></svg>Tot 12 m hoog vanaf de grond</li>
+      <li><svg><use href="#check"/></svg>Vaste prijs vooraf</li>
+    </ul>
+    <div class="cta">
+      
+      <a class="btn brick" href="#prijs">Bereken je prijs<svg><use href="#arrow"/></svg></a>
+      <a class="btn ghost" href="#diensten">Bekijk de tarieven</a>
+    </div>
+  </div>
+  <figure class="house" style="margin:0">
+    <div class="frame"><canvas id="fac" aria-label="Rijwoning met vuile ramen die je zelf proper kan vegen"></canvas><canvas id="grime" class="grime"></canvas></div>
+    <figcaption><span id="hint">Veeg met je muis of vinger over de ramen</span><span class="meter">Proper <i><span id="bar"></span></i><span id="pct" class="num">0%</span></span></figcaption>
+  </figure>
+</div></div>
+
+<section id="diensten" class="alt"><div class="wrap">
+  <div class="head">
+    <div><span class="kicker">Diensten en tarieven</span><h2>Wat het kost, zonder omweg.</h2></div>
+    <p class="lead">Richtprijzen inclusief btw. Elke dienst heeft een eigen pagina met alle details, zodat klanten je vinden op wat ze zoeken.</p>
+  </div>
+  <div class="tarief" id="tarief"></div>
+  <p class="tnote">Geen verplaatsingskosten binnen het Waasland. Minimumbedrag per beurt €45.</p>
+</div></section>
+
+<section id="werkwijze"><div class="wrap">
+  <div class="head"><div><span class="kicker">Zo werkt het</span><h2>Van aanvraag tot factuur.</h2></div></div>
+  <div class="steps">
+    <div class="step"><h3>Aanvraag</h3><p>Bereken je prijs online of stuur een paar foto's.</p></div>
+    <div class="step"><h3>Prijs binnen 48 uur</h3><p>Voor klusjes komen we eerst kijken. Gratis en zonder verplichting.</p></div>
+    <div class="step"><h3>Uitvoering op je ronde</h3><p>We werken per gemeente op vaste dagen. Zo blijft de prijs laag.</p></div>
+    <div class="step"><h3>Factuur achteraf</h3><p>Betalen via overschrijving of Payconiq, pas als je tevreden bent.</p></div>
+  </div>
+</div></section>
+
+<section id="resultaten" class="alt"><div class="wrap">
+  <div class="head"><div><span class="kicker">Voor en na</span><h2>Sleep en vergelijk.</h2></div><p class="lead">Na elke klus komen er nieuwe foto's bij. De zaakvoerder voegt ze zelf toe vanaf zijn gsm.</p></div>
+  <div class="ba-wrap">
+    <div class="ba" id="ba" style="--p:46%">
+      <canvas id="baA"></canvas><canvas id="baB" class="before"></canvas>
+      <span class="tag" style="left:14px">Voor</span><span class="tag" style="right:14px">Na</span>
+      <span class="bar"></span><span class="knob"><svg><use href="#lr"/></svg></span>
+      <input id="baR" type="range" min="0" max="100" value="46" aria-label="Schuif tussen voor en na">
+    </div>
+    <div class="jobs" id="jobs">
+      <button class="job" aria-pressed="true" data-job="terrace"><b>Terras, 45 m²</b><span>Sinaai · warm water en anti-mos</span></button>
+      <button class="job" aria-pressed="false" data-job="wall"><b>Voorgevel, rijwoning</b><span>Belsele · groene aanslag verwijderd</span></button>
+      <button class="job" aria-pressed="false" data-job="pane"><b>Ramen, eerste beurt</b><span>Temse · daarna elke 8 weken</span></button>
+    </div>
+  </div>
+</div></section>
+
+
+<section id="prijs"><div class="wrap">
+  <div class="head"><div><span class="kicker">Prijscalculator</span><h2>Reken het zelf uit.</h2></div><p class="lead">De klant ziet meteen een eerlijke richtprijs, regel per regel, zoals op een echte werkbon. Klopt het, dan boekt hij meteen.</p></div>
+  <div class="calc">
+    <div class="in">
+      <div class="row2">
+        <div class="grp"><span>Aantal ramen</span><div class="stepper" data-k="ramen" data-step="1" data-min="0" data-max="60"><button aria-label="Minder ramen">−</button><output class="num">12</output><button aria-label="Meer ramen">+</button></div></div>
+        <div class="grp"><span>Kant</span><div class="chipset" data-g="kant"><button class="chip" aria-pressed="false" data-v="buiten">Buiten</button><button class="chip" aria-pressed="true" data-v="beide">Binnen + buiten</button></div></div>
+      </div>
+      <div class="grp"><span>Woning</span><div class="chipset" data-g="hoog"><button class="chip" aria-pressed="false" data-v="0">Gelijkvloers</button><button class="chip" aria-pressed="true" data-v="0.15">1 verdieping</button><button class="chip" aria-pressed="false" data-v="0.3">2 of meer</button></div></div>
+      <div class="row2">
+        <div class="grp"><label class="toggle"><input type="checkbox" id="cT" checked> Terras reinigen</label><div class="stepper" data-k="terras" data-step="5" data-min="5" data-max="200" data-u=" m²"><button aria-label="Minder m²">−</button><output class="num">30 m²</output><button aria-label="Meer m²">+</button></div></div>
+        <div class="grp"><label class="toggle"><input type="checkbox" id="cD"> Dakgoten leegmaken</label><div class="stepper" data-k="goot" data-step="2" data-min="4" data-max="80" data-u=" m"><button aria-label="Minder meter">−</button><output class="num">16 m</output><button aria-label="Meer meter">+</button></div></div>
+      </div>
+      <div class="grp"><span>Hoe vaak?</span><div class="chipset" data-g="freq"><button class="chip" aria-pressed="false" data-v="0">Eenmalig</button><button class="chip" aria-pressed="true" data-v="0.1">Elke 8 weken, −10%</button><button class="chip" aria-pressed="false" data-v="0.15">Elke 4 weken, −15%</button></div></div>
+    </div>
+    <div class="bon">
+      <h3>Raming <small>nr. 2026-1043</small></h3>
+      <div class="lines" id="lines"></div>
+      <div class="tot"><span id="totlbl">Per beurt, incl. btw</span><b id="tot">€0</b></div>
+      <p class="fine">Richtprijs. Na een eerste beurt ligt de prijs vast. Voorrijden binnen het Waasland is gratis.</p>
+      <a class="btn brick" href="#boeken">Boek deze prijs<svg><use href="#arrow"/></svg></a>
+    </div>
+  </div>
+</div></section>
+
+<section id="abonnement" class="alt"><div class="wrap">
+  <div class="head"><div><span class="kicker">Abonnement ramenwassen</span><h2>Eén keer afspreken. Daarna nooit meer.</h2></div><p class="lead">Twee dagen voor je beurt krijg je een sms. Ben je er niet, dan doen we gewoon de buitenkant. Opzeggen kan altijd, zonder kosten.</p></div>
+  <div class="tarief">
+    <div class="trow" style="grid-template-columns:1.2fr 1.4fr auto"><div><h3>Los</h3><p>Wanneer jij wil</p></div><ul><li>Online boeken op je ronde-dag</li><li>Volle prijs per beurt</li></ul><div class="price"><small>korting</small><b>0%</b></div></div>
+    <div class="trow" style="grid-template-columns:1.2fr 1.4fr auto"><div><h3>Elke 8 weken</h3><p>Gekozen door de meeste particulieren</p></div><ul><li>Vaste dag, sms-herinnering</li><li>Dakgoten één keer per jaar −20%</li></ul><div class="price"><small>korting per beurt</small><b>−10%</b></div></div>
+    <div class="trow" style="grid-template-columns:1.2fr 1.4fr auto"><div><h3>Elke 4 weken</h3><p>Voor handelszaken en kantoren</p></div><ul><li>Etalage altijd blinkend</li><li>Eén maandfactuur</li></ul><div class="price"><small>korting per beurt</small><b>−15%</b></div></div>
+  </div>
+</div></section>
+
+<section id="boeken"><div class="wrap">
+  <div class="head"><div><span class="kicker">Online boeken</span><h2>Kies een dag op jouw ronde.</h2></div><p class="lead">Kies je gemeente: alleen de dagen dat we in de buurt zijn, staan open. De afspraak komt meteen in het dashboard van de zaakvoerder.</p></div>
+  <div class="book">
+    <div class="cal">
+      <label class="field" for="gem" style="max-width:320px">Gemeente<select id="gem"></select></label>
+      <div>
+        <div class="days" id="dows"></div>
+        <div class="days" id="days" style="margin-top:8px"></div>
+      </div>
+      <div class="legend"><span><i style="background:var(--ok)"></i>Ronde in jouw buurt</span><span><i style="background:var(--line)"></i>Andere gemeente of volzet</span></div>
+      <div class="chipset" data-g="slot"><button class="chip" aria-pressed="true" data-v="Voormiddag, 8u tot 12u">Voormiddag</button><button class="chip" aria-pressed="false" data-v="Namiddag, 13u tot 17u">Namiddag</button></div>
+      <form class="bform" id="bf">
+        <label class="field" for="bn">Naam<input id="bn" autocomplete="name" required value="Sofie Peeters"></label>
+        <label class="field" for="bt">Gsm<input id="bt" autocomplete="tel" required value="0478 12 34 56"></label>
+        <label class="field full" for="badr">Adres<input id="badr" autocomplete="street-address" required value="Kokkelbeekstraat 12"></label>
+        <button class="btn brick full" type="submit">Bevestig afspraak<svg><use href="#arrow"/></svg></button>
+      </form>
+    </div>
+    <aside class="ticket" aria-live="polite">
+      <h3>Jouw afspraak</h3>
+      <dl id="sum"></dl>
+      <div class="notice" id="conf" hidden><b>Afspraak vastgelegd.</b> In de echte site krijgt de klant nu een bevestiging per mail en sms, en staat de afspraak in het dashboard. (demo)</div>
+    </aside>
+  </div>
+</div></section>
+
+
+<section id="reviews" class="alt"><div class="wrap">
+  <div class="rev">
+    <blockquote>
+      <span class="kicker">Reviews</span>
+      <p>"Ons terras lag er groen en glad bij, de kinderen gleden erover uit. Twee dagen later stond hier een ander terras. Hij heeft zelfs de voegen opnieuw ingeveegd zonder dat we erom vroegen."</p>
+      <footer><b>Kristof en Leen</b> · Sinaai · terrasreiniging</footer>
+    </blockquote>
+    <div>
+      <div class="score">
+        <div class="big"><b class="num">4,9</b><div><div class="stars" aria-label="5 sterren">★★★★★</div><span style="color:var(--muted);font-size:14px">87 reviews op Google</span></div></div>
+        <div class="dist">
+          <div><span>5</span><i><span style="width:91%"></span></i><span class="num">79</span></div>
+          <div><span>4</span><i><span style="width:7%"></span></i><span class="num">6</span></div>
+          <div><span>3</span><i><span style="width:2%"></span></i><span class="num">2</span></div>
+          <div><span>2</span><i><span style="width:0%"></span></i><span class="num">0</span></div>
+          <div><span>1</span><i><span style="width:0%"></span></i><span class="num">0</span></div>
+        </div>
+      </div>
+      <div class="minis">
+        <div><p>"Komt nu elke acht weken. Ik moet er niet meer aan denken, de sms komt vanzelf."</p><small>Nadia · Temse</small></div>
+        <div><p>"Laminaat in twee slaapkamers, plinten mooi afgekit. Netjes opgeruimd ook."</p><small>Jan · Beveren</small></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+
+
+<section id="werkgebied"><div class="wrap">
+  <div class="area">
+    <div>
+      <span class="kicker">Werkgebied</span>
+      <h2>Vaste rondes in het Waasland.</h2>
+      <p class="lead" style="margin:18px 0 28px">We werken per gemeente op vaste dagen. Minder rijden, dus een lagere prijs voor jou.</p>
+      <table class="rondes" id="rondes"></table>
+    </div>
+    <svg class="map" viewBox="0 0 420 320" role="img" aria-label="Kaart van het werkgebied rond Sint-Niklaas" id="map"></svg>
+  </div>
+</div></section>
+
+
+
+
+<section id="dashboard" class="alt"><div class="wrap">
+  <div class="head"><div><span class="kicker">Alleen voor de zaakvoerder</span><h2>Alles op één scherm.</h2></div><p class="lead">Aanvragen, afspraken per ronde, abonnementen en facturen. Werkt ook op de gsm in de bestelwagen.</p></div>
+  <div class="dash">
+    <div class="top"><span><b>DuoFix Service</b> · Dashboard</span><span>Woensdag 21 oktober</span></div>
+    <div class="body">
+      <nav><span class="on">Overzicht</span><span>Aanvragen <em>7</em></span><span>Planning</span><span>Abonnementen</span><span>Klanten</span><span>Facturen</span><span>Foto's voor/na</span></nav>
+      <main>
+        <div class="kpis">
+          <div class="kpi"><small>Nieuwe aanvragen</small><b>7</b><span class="d">+3 sinds gisteren</span></div>
+          <div class="kpi"><small>Beurten deze week</small><b>31</b><span class="d">4 rondes</span></div>
+          <div class="kpi"><small>Vaste klanten</small><b>124</b><span class="d">+9 deze maand</span></div>
+          <div class="kpi"><small>Omzet oktober</small><b>€7.260</b><span class="d">+12% t.o.v. sept.</span></div>
+        </div>
+        <div class="tbl"><table>
+          <thead><tr><th>Klant</th><th>Werk</th><th>Gemeente</th><th>Ronde</th><th style="text-align:right">Bedrag</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Sofie Peeters</td><td>12 ramen + terras 30 m²</td><td>Sint-Niklaas</td><td>Ma 26/10</td><td class="r">€218</td><td><span class="pill n">Nieuw</span></td></tr>
+            <tr><td>Bakkerij Van Hecke</td><td>Etalage, elke 4 weken</td><td>Temse</td><td>Di 27/10</td><td class="r">€41</td><td><span class="pill p">Ingepland</span></td></tr>
+            <tr><td>Marc Janssens</td><td>Dakgoten 18 m</td><td>Beveren</td><td>Wo 28/10</td><td class="r">€108</td><td><span class="pill p">Ingepland</span></td></tr>
+            <tr><td>Leen Verhulst</td><td>Laminaat 2 kamers</td><td>Belsele</td><td>Plaatsbezoek</td><td class="r">€1.240</td><td><span class="pill n">Offerte</span></td></tr>
+            <tr><td>Nadia Bouzid</td><td>Ramen, elke 8 weken</td><td>Temse</td><td>Di 20/10</td><td class="r">€62</td><td><span class="pill d">Betaald</span></td></tr>
+          </tbody>
+        </table></div>
+      </main>
+    </div>
+  </div>
+</div></section>
+
+<section id="huisstijl"><div class="wrap">
+  <div class="head"><div><span class="kicker">Inbegrepen: volledige huisstijl</span><h2>Herkenbaar, ook als hij rijdt.</h2></div><p class="lead">Logo, kleuren en letters die overal terugkomen: op de bestelwagen, de werkkledij, het visitekaartje en tien social media templates.</p></div>
+  <div class="kit">
+    <figure class="k-van"><div class="v">
+      <svg class="vansvg" viewBox="0 0 520 230" aria-label="Bestelwagen met belettering">
+        <ellipse cx="260" cy="212" rx="240" ry="8" fill="currentColor" opacity=".08"/>
+        <path d="M24 186 V78 Q24 54 48 52 L356 46 Q380 46 394 64 L440 124 Q490 130 500 150 L502 186 Z" fill="#0f2238"/>
+        <path d="M368 56 Q382 56 390 68 L428 122 H372 Z" fill="#8fb6d3"/>
+        <path d="M374 62 L392 88" stroke="#fff" stroke-width="3" opacity=".5"/>
+        <rect x="372" y="128" width="16" height="4" rx="2" fill="#5c6f84"/>
+        <path d="M24 158 H502 V170 H24 Z" fill="#a8432b"/>
+        <line x1="356" y1="52" x2="356" y2="186" stroke="#22384f" stroke-width="2"/>
+        <g transform="translate(46,74)"><rect width="34" height="34" rx="3" fill="#e8eef2"/><rect x="4" y="4" width="11" height="11" fill="#0f2238" opacity=".25"/><rect x="19" y="4" width="11" height="11" fill="#8fb6d3"/><rect x="4" y="19" width="11" height="11" fill="#0f2238" opacity=".25"/><rect x="19" y="19" width="11" height="11" fill="#0f2238" opacity=".25"/></g>
+        <text x="92" y="104" fill="#e8eef2" style="font-family:var(--display);font-stretch:125%;font-weight:850;font-size:34px;letter-spacing:.5px">DUOFIX</text>
+        <text x="48" y="132" fill="#9cb0c2" style="font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:2px">SERVICE · RAMEN · GEVELS · KLUSJES</text>
+        <text x="48" y="153" fill="#e8eef2" style="font-family:var(--display);font-stretch:112%;font-weight:800;font-size:17px">0470 12 34 56 · duofixservice.be</text>
+        <circle cx="110" cy="186" r="25" fill="#1b1f24"/><circle cx="110" cy="186" r="11" fill="#9aa3ab"/>
+        <circle cx="420" cy="186" r="25" fill="#1b1f24"/><circle cx="420" cy="186" r="11" fill="#9aa3ab"/>
+        <rect x="490" y="146" width="10" height="8" rx="2" fill="#f3d27a"/>
+        <path d="M60 52 L300 47" stroke="#9aa3ab" stroke-width="5" stroke-linecap="round"/>
+        <path d="M80 44 L80 52 M280 40 L280 48" stroke="#9aa3ab" stroke-width="3"/>
+      </svg></div><figcaption>Belettering bestelwagen <span>ladder op het dak inbegrepen</span></figcaption></figure>
+    <figure class="k-card"><div class="v"><div class="stack">
+      <div class="bcard b"><b style="font-size:13px">Pieter De Smet</b>Zaakvoerder<br>0470 12 34 56<br>info@duofixservice.be<br>BE 0712.345.678</div>
+      <div class="bcard f"><svg style="width:28px;height:28px;color:#e8eef2"><use href="#mark"/></svg><div><b>DuoFix</b><br><small>Service · Ramen · Gevels</small></div></div>
+    </div></div><figcaption>Visitekaartje <span>voor en achter</span></figcaption></figure>
+    <figure class="k-polo"><div class="v">
+      <svg viewBox="0 0 200 190" style="width:190px;max-width:100%" aria-label="Werkpolo">
+        <path d="M70 18 L40 30 L10 62 L30 86 L48 74 V176 H152 V74 L170 86 L190 62 L160 30 L130 18 Q100 40 70 18 Z" fill="#0f2238"/>
+        <path d="M70 18 Q100 40 130 18 L120 14 Q100 30 80 14 Z" fill="#1d3550"/>
+        <path d="M100 30 V58" stroke="#22384f" stroke-width="3"/>
+        <circle cx="100" cy="42" r="2.5" fill="#9cb0c2"/><circle cx="100" cy="52" r="2.5" fill="#9cb0c2"/>
+        <g transform="translate(118,56)"><rect width="16" height="16" rx="2" fill="#e8eef2"/><rect x="9" y="2" width="5" height="5" fill="#8fb6d3"/></g>
+        <text x="138" y="68" fill="#e8eef2" style="font-family:var(--display);font-stretch:125%;font-weight:850;font-size:8px">DUOFIX</text>
+        <path d="M48 160 H152" stroke="#a8432b" stroke-width="6"/>
+      </svg></div><figcaption>Werkkledij <span>polo en softshell</span></figcaption></figure>
+    <figure class="k-swatch"><div class="v"><div class="swatches">
+      <div style="background:#0f2238;color:#e8eef2">Ruitblauw<small>#0F2238</small></div>
+      <div style="background:#8fb6d3;color:#0f2238">Glas<small>#8FB6D3</small></div>
+      <div style="background:#a8432b;color:#fff">Baksteen<small>#A8432B</small></div>
+      <div style="background:#3c464f;color:#e8eef2">Arduin<small>#3C464F</small></div>
+    </div></div><figcaption>Kleuren <span>uit de straat zelf</span></figcaption></figure>
+    <figure class="k-social"><div class="v" style="padding:20px"><div class="posts" id="posts" style="grid-template-columns:1fr 1fr;gap:10px;width:100%"></div></div><figcaption>Social media <span>10 templates</span></figcaption></figure>
+  </div>
+</div></section>
+
+
+</div>
+
+<div data-view="page" hidden><div class="wrap" id="page"></div></div>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <div style="display:grid;gap:16px;align-content:start">
+    <a class="logo" href="#top"><svg style="color:var(--band-fg)"><use href="#mark"/></svg><span><b>DuoFix</b><small>Service · Ramen · Gevels · Klusjes</small></span></a>
+    <p style="max-width:34ch">Eén vaste vakman voor propere ramen, frisse gevels en de klusjes die blijven liggen.</p>
+  </div>
+  <div><h4>Diensten</h4><ul id="fsvc"></ul></div>
+  <div><h4>Werkgebied</h4><ul id="ftown"></ul></div>
+  <div><h4>Contact</h4><ul><li style="user-select:all">0470 12 34 56</li><li style="user-select:all">info@duofixservice.be</li><li>Sint-Niklaas</li><li><a href="https://instagram.com">Instagram</a> · <a href="https://facebook.com">Facebook</a></li></ul></div>
+  <div class="legal"><span>© 2026 DuoFix Service · BE 0712.345.678</span><span>Privacy · Algemene voorwaarden</span></div>
+</div></footer>
+
+<script>
+/* Procedurele beelden: gevel, ramen, terras, muur, laminaat. Geen externe foto's nodig. */
+const Art = (() => {
+  const rng = s => () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  function noise(seed) {
+    const r = rng(seed), P = new Float32Array(65536);
+    for (let i = 0; i < 65536; i++) P[i] = r();
+    const g = (x, y) => P[((y & 255) << 8) | (x & 255)], sm = t => t * t * (3 - 2 * t);
+    const n = (x, y) => { const xi = Math.floor(x), yi = Math.floor(y), u = sm(x - xi), v = sm(y - yi), a = g(xi, yi), b = g(xi + 1, yi), c = g(xi, yi + 1), d = g(xi + 1, yi + 1); return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v; };
+    return (x, y, o = 4) => { let t = 0, a = .5, f = 1, m = 0; for (let i = 0; i < o; i++) { t += a * n(x * f, y * f); m += a; a *= .5; f *= 2; } return t / m; };
+  }
+  const sst = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  function size(cv, ratio, max = 1400) {
+    const w = Math.max(200, Math.min(max, Math.round((cv.clientWidth || cv.parentNode.clientWidth || 600) * Math.min(window.devicePixelRatio || 1, 2))));
+    cv.width = w; cv.height = Math.round(w * ratio);
+    return cv.getContext('2d', { willReadFrequently: true });
+  }
+  function grain(ctx, w, h, amt, seed) {
+    const r = rng(seed), id = ctx.getImageData(0, 0, w, h), d = id.data;
+    for (let i = 0; i < d.length; i += 4) { const v = (r() - .5) * amt; d[i] += v; d[i + 1] += v; d[i + 2] += v; }
+    ctx.putImageData(id, 0, 0);
+  }
+  function bricks(ctx, x0, y0, w, h, s, seed) {
+    const r = rng(seed);
+    ctx.save(); ctx.beginPath(); ctx.rect(x0, y0, w, h); ctx.clip();
+    ctx.fillStyle = '#b3ab9d'; ctx.fillRect(x0, y0, w, h);
+    const bw = 21 * s, bh = 6.5 * s, m = 1.3 * s; let row = 0;
+    for (let y = y0; y < y0 + h; y += bh + m, row++) {
+      const off = row % 2 ? (bw + m) / 2 : 0;
+      for (let x = x0 - off; x < x0 + w; x += bw + m) {
+        const burnt = r() < .1, L = burnt ? 18 + r() * 6 : 26 + r() * 12, H = 6 + r() * 12, S = 30 + r() * 16;
+        ctx.fillStyle = `hsl(${H},${S}%,${L}%)`; ctx.fillRect(x, y, bw, bh);
+        ctx.fillStyle = `rgba(255,240,230,${r() * .07})`; ctx.fillRect(x, y, bw, bh * .3);
+        ctx.fillStyle = `rgba(0,0,0,${.08 + r() * .08})`; ctx.fillRect(x, y + bh * .82, bw, bh * .18);
+      }
+    }
+    ctx.restore();
+  }
+  function soldier(ctx, x, y, w, s, seed) {
+    const r = rng(seed), bw = 6.5 * s, h = 10 * s, m = 1.2 * s;
+    ctx.fillStyle = '#bfb5a4'; ctx.fillRect(x, y, w, h);
+    for (let px = x; px < x + w - 1; px += bw + m) { ctx.fillStyle = `hsl(${9 + r() * 10},${40 + r() * 15}%,${26 + r() * 10}%)`; ctx.fillRect(px, y, Math.min(bw, x + w - px), h); }
+  }
+  function glass(ctx, x, y, w, h, seed) {
+    const r = rng(seed);
+    const g = ctx.createLinearGradient(x, y, x + w * .3, y + h);
+    g.addColorStop(0, '#6f9cbf'); g.addColorStop(.55, '#bcd5e6'); g.addColorStop(1, '#e6eff4');
+    ctx.fillStyle = g; ctx.fillRect(x, y, w, h);
+    ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+    for (let i = 0; i < 5; i++) { const cx = x + r() * w, cy = y + r() * h * .5, rr = w * (.18 + r() * .3); const cg = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr); cg.addColorStop(0, 'rgba(255,255,255,.5)'); cg.addColorStop(1, 'rgba(255,255,255,0)'); ctx.fillStyle = cg; ctx.fillRect(cx - rr, cy - rr, rr * 2, rr * 2); }
+    ctx.fillStyle = 'rgba(70,48,40,.32)'; ctx.beginPath(); ctx.moveTo(x, y + h); let px = x; ctx.lineTo(x, y + h * .8);
+    while (px < x + w) { const ww = w * (.22 + r() * .3), hh = h * (.6 + r() * .2); ctx.lineTo(px, y + hh); ctx.lineTo(px + ww, y + hh); px += ww; }
+    ctx.lineTo(x + w, y + h); ctx.fill();
+    const sg = ctx.createLinearGradient(x, y, x + w, y + h); sg.addColorStop(.32, 'rgba(255,255,255,0)'); sg.addColorStop(.42, 'rgba(255,255,255,.38)'); sg.addColorStop(.5, 'rgba(255,255,255,0)'); sg.addColorStop(.58, 'rgba(255,255,255,.18)'); sg.addColorStop(.62, 'rgba(255,255,255,0)');
+    ctx.fillStyle = sg; ctx.fillRect(x, y, w, h); ctx.restore();
+  }
+  function win(ctx, x, y, w, h, s, seed, out, split = true) {
+    const f = 3.4 * s;
+    ctx.fillStyle = 'rgba(0,0,0,.4)'; ctx.fillRect(x - 2 * s, y - 2 * s, w + 4 * s, h + 3 * s);
+    ctx.fillStyle = '#f2f3ef'; ctx.fillRect(x, y, w, h);
+    const pw = split ? (w - 3 * f) / 2 : w - 2 * f;
+    const panes = split ? [[x + f, y + f, pw, h - 2 * f], [x + 2 * f + pw, y + f, pw, h - 2 * f]] : [[x + f, y + f, pw, h - 2 * f]];
+    panes.forEach((p, i) => { glass(ctx, ...p, seed + i * 7); ctx.strokeStyle = 'rgba(0,0,0,.15)'; ctx.lineWidth = Math.max(1, s * .4); ctx.strokeRect(p[0], p[1], p[2], p[3]); out && out.push(p); });
+    ctx.fillStyle = '#39434d'; ctx.fillRect(x - 5 * s, y + h, w + 10 * s, 3.6 * s);
+    ctx.fillStyle = '#66717b'; ctx.fillRect(x - 5 * s, y + h, w + 10 * s, 1 * s);
+    ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(x - 3 * s, y + h + 3.6 * s, w + 6 * s, 2 * s);
+  }
+  /* Vlaamse rijwoning, 320 x 384 ontwerp-eenheden */
+  function facade(cv, seed = 3) {
+    const ctx = size(cv, 1.2), W = cv.width, H = cv.height, s = W / 320, out = [];
+    const sky = ctx.createLinearGradient(0, 0, 0, 16 * s); sky.addColorStop(0, '#a9c6da'); sky.addColorStop(1, '#d9e6ee');
+    ctx.fillStyle = sky; ctx.fillRect(0, 0, W, 16 * s);
+    bricks(ctx, 0, 30 * s, W, 330 * s, s, seed);
+    ctx.fillStyle = '#2b3036'; ctx.fillRect(0, 19 * s, W, 12 * s);
+    ctx.fillStyle = '#3a4047'; ctx.fillRect(0, 19 * s, W, 3 * s);
+    ctx.fillStyle = '#9ea7ad'; ctx.fillRect(0, 13 * s, W, 6 * s);
+    ctx.fillStyle = '#c3cacf'; ctx.fillRect(0, 13 * s, W, 1.6 * s);
+    ctx.fillStyle = '#868f96'; ctx.fillRect(296 * s, 19 * s, 5 * s, 342 * s);
+    ctx.fillStyle = '#a6aeb4'; ctx.fillRect(296 * s, 19 * s, 1.5 * s, 342 * s);
+    [[36, 66, 100, 104], [168, 66, 100, 104]].forEach(([x, y, w, h], i) => { soldier(ctx, (x - 4) * s, (y - 12) * s, (w + 8) * s, s, seed + 20 + i); win(ctx, x * s, y * s, w * s, h * s, s, seed + 40 + i * 13, out); });
+    soldier(ctx, 128 * s, 212 * s, 148 * s, s, seed + 30);
+    win(ctx, 132 * s, 224 * s, 140 * s, 108 * s, s, seed + 70, out, true);
+    soldier(ctx, 32 * s, 212 * s, 72 * s, s, seed + 31);
+    ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(34 * s, 222 * s, 68 * s, 138 * s);
+    ctx.fillStyle = '#26323c'; ctx.fillRect(36 * s, 224 * s, 64 * s, 136 * s);
+    ctx.fillStyle = '#2f3d49'; for (let i = 0; i < 4; i++) ctx.fillRect(44 * s, (276 + i * 20) * s, 48 * s, 14 * s);
+    glass(ctx, 44 * s, 232 * s, 48 * s, 36 * s, seed + 90); out.push([44 * s, 232 * s, 48 * s, 36 * s]);
+    ctx.fillStyle = '#c7ccd0'; ctx.fillRect(88 * s, 300 * s, 4 * s, 14 * s);
+    ctx.fillStyle = '#f2f3ef'; ctx.font = `600 ${9 * s}px sans-serif`; ctx.fillText('27', 62 * s, 228 * s - 2 * s);
+    ctx.fillStyle = '#3c464f'; ctx.fillRect(0, 356 * s, W, 16 * s);
+    ctx.fillStyle = '#56616a'; ctx.fillRect(0, 356 * s, W, 2 * s);
+    ctx.fillStyle = '#4a545d'; ctx.fillRect(28 * s, 358 * s, 80 * s, 10 * s);
+    ctx.fillStyle = '#b5b2aa'; ctx.fillRect(0, 372 * s, W, 12 * s);
+    ctx.fillStyle = 'rgba(0,0,0,.12)'; for (let x = 0; x < 320; x += 30) ctx.fillRect(x * s, 372 * s, 1 * s, 12 * s);
+    const sh = ctx.createLinearGradient(0, 0, W, 0); sh.addColorStop(0, 'rgba(0,0,0,.18)'); sh.addColorStop(.25, 'rgba(0,0,0,0)'); sh.addColorStop(.8, 'rgba(255,230,200,.05)'); sh.addColorStop(1, 'rgba(0,0,0,.12)');
+    ctx.fillStyle = sh; ctx.fillRect(0, 0, W, H);
+    grain(ctx, W, H, 14, seed + 99);
+    return out;
+  }
+  /* Vuile film over glasvlakken, op een aparte canvas */
+  function grime(cv, rects, seed = 5) {
+    const ctx = cv.getContext('2d', { willReadFrequently: true }), n = noise(seed), r = rng(seed), W = cv.width;
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    const k = 600 / W;
+    rects.forEach(([x, y, w, h]) => {
+      x = Math.round(x); y = Math.round(y); w = Math.round(w); h = Math.round(h);
+      const id = ctx.createImageData(w, h), d = id.data;
+      for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) {
+        const X = (x + i) * k, Y = (y + j) * k, a = n(X * .035, Y * .035), drip = n(X * .16, Y * .012, 3), o = (j * w + i) * 4;
+        const al = .5 + .38 * a + sst(.58, .75, drip) * .3 + (j / h) * .12;
+        d[o] = 118 + a * 30; d[o + 1] = 110 + a * 24; d[o + 2] = 88 + a * 14; d[o + 3] = Math.min(235, al * 255);
+      }
+      ctx.putImageData(id, x, y);
+      for (let i = 0; i < w * h / 900; i++) { ctx.fillStyle = `rgba(90,78,60,${.25 + r() * .4})`; ctx.beginPath(); ctx.arc(x + r() * w, y + r() * h, (.5 + r() * 1.6) * W / 600, 0, 7); ctx.fill(); }
+    });
+  }
+  function wiper(cv, rects, onProgress) {
+    const ctx = cv.getContext('2d', { willReadFrequently: true });
+    let last = null, down = false;
+    const pts = []; rects.forEach(([x, y, w, h]) => { for (let j = y + 4; j < y + h; j += 8) for (let i = x + 4; i < x + w; i += 8) pts.push([i | 0, j | 0]); });
+    const id0 = ctx.getImageData(0, 0, cv.width, cv.height).data;
+    const base = pts.filter(([i, j]) => id0[(j * cv.width + i) * 4 + 3] > 40).length || 1;
+    const measure = () => { const d = ctx.getImageData(0, 0, cv.width, cv.height).data; const left = pts.filter(([i, j]) => d[(j * cv.width + i) * 4 + 3] > 40).length; onProgress && onProgress(Math.round(100 * (1 - left / base))); };
+    const pos = e => { const b = cv.getBoundingClientRect(); return [(e.clientX - b.left) * cv.width / b.width, (e.clientY - b.top) * cv.height / b.height]; };
+    const stroke = (a, b) => { ctx.save(); ctx.globalCompositeOperation = 'destination-out'; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = cv.width * .075; ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); ctx.restore(); };
+    let t = 0;
+    cv.addEventListener('pointerdown', e => { down = true; last = pos(e); cv.setPointerCapture(e.pointerId); stroke(last, last); });
+    cv.addEventListener('pointermove', e => { if (!down) return; const p = pos(e); stroke(last, p); last = p; if (++t % 6 === 0) measure(); });
+    const up = () => { if (down) { down = false; measure(); } };
+    cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+    return { stroke, measure };
+  }
+  function autoWipe(api, rect, cv) {
+    const [x, y, w, h] = rect, path = [];
+    for (let k = 0; k <= 3; k++) { const yy = y + h * (.15 + k * .22); path.push(k % 2 ? [x + w * .9, yy] : [x + w * .1, yy], k % 2 ? [x + w * .1, yy] : [x + w * .9, yy]); }
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { for (let i = 1; i < path.length; i++) api.stroke(path[i - 1], path[i]); api.measure(); return; }
+    let i = 0, f = 0, prev = path[0];
+    const step = () => { const a = path[i], b = path[i + 1]; if (!b) { api.measure(); return; } f += .06; const p = [a[0] + (b[0] - a[0]) * Math.min(f, 1), a[1] + (b[1] - a[1]) * Math.min(f, 1)]; api.stroke(prev, p); prev = p; if (f >= 1) { f = 0; i++; } requestAnimationFrame(step); };
+    setTimeout(() => requestAnimationFrame(step), 500);
+  }
+  /* Terras in betontegels 60x60 */
+  function terrace(cv, dirty, seed = 11) {
+    const ctx = size(cv, .62, 1100), W = cv.width, H = cv.height, r = rng(seed), n = noise(seed);
+    const T = W / 5.2, jw = Math.max(2, T * .03), ox = -T * .3, oy = -T * .2;
+    ctx.fillStyle = '#7d7a73'; ctx.fillRect(0, 0, W, H);
+    for (let y = oy; y < H; y += T) for (let x = ox; x < W; x += T) { const L = 64 + r() * 9; ctx.fillStyle = `hsl(36,${5 + r() * 5}%,${L}%)`; ctx.fillRect(x + jw / 2, y + jw / 2, T - jw, T - jw); ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.fillRect(x + jw / 2, y + jw / 2, T - jw, jw); }
+    const id = ctx.getImageData(0, 0, W, H), d = id.data, k = 900 / W;
+    for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) {
+      const o = (j * W + i) * 4, X = i * k, Y = j * k, sp = (r() - .5) * 26;
+      d[o] += sp; d[o + 1] += sp; d[o + 2] += sp;
+      if (!dirty) continue;
+      const mx = ((i - ox) % T + T) % T, my = ((j - oy) % T + T) % T, dj = Math.min(mx, T - mx, my, T - my);
+      const stain = sst(.38, .72, n(X * .012, Y * .012)), moss = sst(jw * (1.2 + 2.6 * n(X * .03 + 7, Y * .03)), 0, dj) * sst(.25, .6, n(X * .06, Y * .06)) * .85, lich = sst(.7, .78, n(X * .05 + 50, Y * .05));
+      const a = Math.min(1, stain * .7 + .18);
+      d[o] = d[o] * (1 - a) + 62 * a; d[o + 1] = d[o + 1] * (1 - a) + 66 * a; d[o + 2] = d[o + 2] * (1 - a) + 48 * a;
+      if (moss > .05) { d[o] = d[o] * (1 - moss) + 66 * moss; d[o + 1] = d[o + 1] * (1 - moss) + 84 * moss; d[o + 2] = d[o + 2] * (1 - moss) + 36 * moss; }
+      if (lich > .1) { d[o] = d[o] * (1 - lich * .6) + 170 * lich * .6; d[o + 1] = d[o + 1] * (1 - lich * .6) + 168 * lich * .6; d[o + 2] = d[o + 2] * (1 - lich * .6) + 140 * lich * .6; }
+    }
+    ctx.putImageData(id, 0, 0);
+    if (!dirty) { const g = ctx.createLinearGradient(0, 0, W, H); g.addColorStop(0, 'rgba(255,255,255,.08)'); g.addColorStop(1, 'rgba(0,0,0,.05)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
+  }
+  /* Gevel close-up met groene aanslag */
+  function wall(cv, dirty, seed = 21) {
+    const ctx = size(cv, .62, 1100), W = cv.width, H = cv.height, s = W / 190, n = noise(seed);
+    bricks(ctx, 0, 0, W, H, s, seed);
+    ctx.fillStyle = '#39434d'; ctx.fillRect(W * .5, H * .12, W * .45, 4.2 * s); ctx.fillStyle = '#66717b'; ctx.fillRect(W * .5, H * .12, W * .45, 1.2 * s);
+    if (dirty) {
+      const id = ctx.getImageData(0, 0, W, H), d = id.data, k = 900 / W;
+      for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) {
+        const o = (j * W + i) * 4, X = i * k, Y = j * k;
+        const streak = sst(.5, .85, n(X * .025, Y * .004, 3)) * (j > H * .14 ? 1 : .3), algae = sst(.5, .8, n(X * .01 + 9, Y * .01)) * (1 - j / H * .4), soot = sst(.55, .8, n(X * .02 + 30, Y * .02)) * .5;
+        const g = Math.min(.8, algae * .6 + streak * .45 + .08);
+        d[o] = d[o] * (1 - g) + 58 * g; d[o + 1] = d[o + 1] * (1 - g) + 82 * g; d[o + 2] = d[o + 2] * (1 - g) + 38 * g;
+        d[o] *= 1 - soot * .5; d[o + 1] *= 1 - soot * .5; d[o + 2] *= 1 - soot * .5;
+      }
+      ctx.putImageData(id, 0, 0);
+    }
+    grain(ctx, W, H, 12, seed + 5);
+  }
+  /* Laminaat eik */
+  function laminate(cv, seed = 31) {
+    const ctx = size(cv, .62, 1100), W = cv.width, H = cv.height, r = rng(seed), n = noise(seed);
+    const ph = H / 5.5, pl = W * .72;
+    const id = ctx.createImageData(W, H), d = id.data, k = 900 / W;
+    const tone = []; for (let i = 0; i < 80; i++) tone.push([.92 + r() * .16, r() * 1000]);
+    for (let j = 0; j < H; j++) {
+      const row = Math.floor(j / ph), off = (row * 0.37 % 1) * pl, yj = j - row * ph;
+      for (let i = 0; i < W; i++) {
+        const col = Math.floor((i + off) / pl), t = tone[(row * 7 + col) % 80], X = i * k, Y = j * k;
+        const grainv = n((X + t[1]) * .012, Y * .35, 3), knot = sst(.78, .86, n(X * .04 + t[1], Y * .09));
+        let R = 196 * t[0] - grainv * 52 - knot * 40, G = 160 * t[0] - grainv * 46 - knot * 38, B = 112 * t[0] - grainv * 34 - knot * 26;
+        const ex = (i + off) % pl;
+        if (yj < 1.6 || ex < 1.6) { R *= .55; G *= .55; B *= .55; } else if (yj < 4) { R *= 1.05; G *= 1.05; B *= 1.05; }
+        const o = (j * W + i) * 4; d[o] = R; d[o + 1] = G; d[o + 2] = B; d[o + 3] = 255;
+      }
+    }
+    ctx.putImageData(id, 0, 0);
+    const g = ctx.createLinearGradient(0, 0, W, H); g.addColorStop(0, 'rgba(255,245,225,.18)'); g.addColorStop(.6, 'rgba(255,255,255,0)'); g.addColorStop(1, 'rgba(0,0,0,.18)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  }
+  /* Raam close-up: kader + glas, optioneel vuil */
+  function pane(cv, dirty, seed = 41) {
+    const ctx = size(cv, .62, 1100), W = cv.width, H = cv.height, s = W / 190, out = [];
+    bricks(ctx, 0, 0, W, H, s, seed);
+    soldier(ctx, 22 * s, 4 * s, 146 * s, s, seed + 2);
+    win(ctx, 26 * s, 16 * s, 138 * s, 92 * s, s, seed + 3, out);
+    grain(ctx, W, H, 10, seed + 4);
+    if (dirty) { const c2 = document.createElement('canvas'); c2.width = W; c2.height = H; grime(c2, out, seed + 9); ctx.drawImage(c2, 0, 0); }
+  }
+  return { facade, grime, wiper, autoWipe, terrace, wall, laminate, pane, size };
+})();
+
+const PRO = true;
+const $ = id => document.getElementById(id);
+const eur = n => new Intl.NumberFormat('nl-BE', { style: 'currency', currency: 'EUR', minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 }).format(n);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+const SVC = [
+  { slug: 'ramen-wassen', title: 'Ramen wassen', h1: 'Ramen wassen in het Waasland', short: "Binnen en buiten, ook veranda's en dakvensters", items: ['Osmosewater, geen strepen', 'Eenmalig of op vaste ronde'], from: '€45', unit: 'per beurt, rijwoning', art: 'pane',
+    lead: 'Met gezuiverd osmosewater en een telescopische steel tot 12 meter. Geen ladder tegen je gevel, geen strepen en geen kalkvlekken als het daarna regent.',
+    incl: ['Glas, kaders en vensterbanken', "Veranda's, dakvensters en lichtstraten", 'Tot 12 meter hoog vanaf de grond', 'Eenmalig of op een vaste ronde'], note: 'buitenkant rijwoning, binnenkant + €2,50 per raam',
+    faq: [['Moet ik thuis zijn?', 'Voor de buitenkant niet. Voor de binnenkant spreken we een moment af op je ronde-dag.'], ['Wat als het regent na het wassen?', 'Osmosewater bevat geen kalk of zeep. Een bui achteraf laat dus geen vlekken achter.'], ['Hoe vaak laat ik mijn ramen wassen?', 'De meeste klanten kiezen elke acht weken. Handelszaken met een etalage vaak elke vier weken.']] },
+  { slug: 'terrasreiniging', title: 'Terras en oprit', h1: 'Terrasreiniging in het Waasland', short: 'Mos en groene aanslag weg, voegen opnieuw ingeveegd', items: ['Warm water onder hoge druk', 'Anti-mos nabehandeling'], from: '€4', unit: 'per m²', art: 'terrace',
+    lead: 'Een glad, groen terras is niet alleen lelijk, het is gevaarlijk. We reinigen met warm water onder hoge druk en behandelen na, zodat het langer proper blijft.',
+    incl: ['Betontegels, klinkers en natuursteen', 'Voegen uitgekrabd en opnieuw ingeveegd', 'Anti-mos nabehandeling', 'Ook opritten en tuinpaden'], note: 'inclusief nabehandeling, voegzand + €1 per m²',
+    faq: [['Beschadigt hoge druk mijn tegels niet?', 'We stemmen druk en temperatuur af op het materiaal. Natuursteen reinigen we met een vlakreiniger, niet met een losse lans.'], ['Hoe lang blijft het proper?', 'Met de nabehandeling gemiddeld twee tot drie jaar, afhankelijk van schaduw en bomen in de buurt.'], ['Kan ik er meteen weer op?', 'Ja. Alleen na het invegen vragen we om een dag niet te kuisen met water.']] },
+  { slug: 'gevelreiniging', title: 'Gevels en dakgoten', h1: 'Gevelreiniging en dakgoten', short: 'Voorgevel weer zijn eigen kleur, dakgoten leeg voor de winter', items: ['Baksteen, crepi en arduin', 'Hoogtewerker tot 3 bouwlagen'], from: '€6', unit: 'per meter dakgoot', art: 'wall',
+    lead: 'Groene aanslag en zwarte strepen trekken diep in baksteen. We reinigen zacht maar grondig, en maken je dakgoten leeg voor ze overlopen.',
+    incl: ['Dakgoten leegmaken en afvoeren doorspoelen', 'Gevelreiniging baksteen, crepi en arduin', 'Groene aanslag en zwarte strepen', 'Hoogtewerker tot drie bouwlagen'], note: 'gevelreiniging op offerte na foto of plaatsbezoek',
+    faq: [['Wanneer laat ik mijn dakgoten best leegmaken?', 'Eind november, als de bladeren gevallen zijn. Dan zit je veilig voor de winterbuien.'], ['Wordt mijn gevel niet nat binnen?', 'Nee. We werken met lage druk en controleren voegen en ramen vooraf.'], ['Heb ik een vergunning nodig voor de hoogtewerker?', 'Voor de meeste straten niet. Als het nodig is, vragen wij de signalisatie aan bij de stad.']] },
+  { slug: 'klusjesman', title: 'Klusjes en verbouwing', h1: 'Klusjesman in Sint-Niklaas', short: 'Schilderwerk, laminaat, plinten en herstellingen', items: ['Gratis plaatsbezoek', 'Prijs vooraf afgesproken'], from: '€45', unit: 'per uur, excl. materiaal', art: 'laminate',
+    lead: 'Het werk dat blijft liggen: een kamer die geschilderd moet worden, laminaat in de slaapkamer, plinten, een deur die klemt. We komen eerst kijken en spreken de prijs vooraf af.',
+    incl: ['Muren en plafonds schilderen', 'Laminaat en plinten leggen', 'Kleine herstellingen in en rond huis', 'Monteren, ophangen en afwerken'], note: 'of een vaste prijs per klus na plaatsbezoek',
+    faq: [['Brengen jullie zelf materiaal mee?', 'Als je wil wel. We rekenen het aan tegen aankoopprijs, met de bon erbij.'], ['Hoe snel kunnen jullie starten?', 'Klusjes plannen we op zaterdag of tussen de rondes, meestal binnen twee weken.'], ['Ruimen jullie zelf op?', 'Altijd. Afval en restmateriaal nemen we mee.']] }
+];
+const TOWNS = [
+  { n: 'Sint-Niklaas', slug: 'sint-niklaas', pc: '9100', x: 205, y: 150, home: 1 },
+  { n: 'Belsele', slug: 'belsele', pc: '9111', x: 148, y: 170 },
+  { n: 'Sinaai', slug: 'sinaai', pc: '9112', x: 92, y: 178 },
+  { n: 'Nieuwkerken', slug: 'nieuwkerken', pc: '9100', x: 250, y: 108 },
+  { n: 'Beveren', slug: 'beveren', pc: '9120', x: 318, y: 88 },
+  { n: 'Kruibeke', slug: 'kruibeke', pc: '9150', x: 372, y: 160 },
+  { n: 'Temse', slug: 'temse', pc: '9140', x: 330, y: 236 },
+  { n: 'Waasmunster', slug: 'waasmunster', pc: '9250', x: 190, y: 268 },
+  { n: 'Lokeren', slug: 'lokeren', pc: '9160', x: 92, y: 262 },
+  { n: 'Stekene', slug: 'stekene', pc: '9190', x: 120, y: 76 }
+];
+const DAGEN = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
+const RONDE = { 1: ['Sint-Niklaas', 'Belsele', 'Sinaai'], 2: ['Temse', 'Waasmunster'], 3: ['Beveren', 'Kruibeke', 'Nieuwkerken'], 4: ['Stekene', 'Lokeren'], 5: ['Sint-Niklaas', 'Temse'] };
+const daysFor = n => Object.keys(RONDE).filter(d => RONDE[d].includes(n)).map(d => DAGEN[d]);
+const tlink = t => PRO ? `<a href="#${t.slug}">${t.n}</a>` : t.n;
+
+/* hero: gevel + vegen */
+(() => {
+  const f = $('fac'), g = $('grime');
+  const rects = Art.facade(f);
+  g.width = f.width; g.height = f.height;
+  Art.grime(g, rects);
+  const done = () => { $('hint').innerHTML = '<span class="done-msg">Zo laten we elk raam achter.</span>'; };
+  const api = Art.wiper(g, rects, p => { $('bar').style.width = p + '%'; $('pct').textContent = p + '%'; if (p >= 92) done(); });
+  Art.autoWipe(api, rects[0], g);
+})();
+
+/* tarieven */
+$('tarief').innerHTML = SVC.map(s => `<a class="trow" href="#${s.slug}"><canvas data-art="${s.art}" aria-hidden="true"></canvas><div><h3>${s.title}</h3><p>${s.short}</p></div><ul>${s.items.map(i => `<li>${i}</li>`).join('')}</ul><div class="price"><small>vanaf</small><b>${s.from}</b><small>${s.unit}</small></div></a>`).join('');
+const drawArt = (cv, kind, dirty, seed) => { if (kind === 'pane') Art.pane(cv, dirty, seed); else if (kind === 'terrace') Art.terrace(cv, dirty, seed); else if (kind === 'wall') Art.wall(cv, dirty, seed); else Art.laminate(cv, seed); };
+document.querySelectorAll('.trow canvas').forEach((c, i) => drawArt(c, c.dataset.art, false, 50 + i));
+
+/* voor/na */
+function baBind(root) {
+  const r = root.querySelector('input'); r.addEventListener('input', () => root.style.setProperty('--p', r.value + '%'));
+}
+function baDraw(root, kind, seed) {
+  const [a, b] = root.querySelectorAll('canvas'); drawArt(a, kind, false, seed); drawArt(b, kind, true, seed);
+}
+baBind($('ba'));
+let baDone = false;
+setTimeout(() => { if (!baDone) { baDone = true; baDraw($('ba'), 'terrace', 11); } }, 60);
+document.querySelectorAll('.job').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.job').forEach(x => x.setAttribute('aria-pressed', x === b));
+  baDone = true; baDraw($('ba'), b.dataset.job, { terrace: 11, wall: 21, pane: 41 }[b.dataset.job]);
+}));
+
+/* werkgebied */
+function renderMap(svg, hi) {
+  const home = TOWNS[0];
+  let h = `<path class="river" d="M404 0 C 388 60, 410 120, 396 170 S 352 236, 340 320"/>
+  <text class="s" x="384" y="300" text-anchor="end">SCHELDE</text>
+  <path class="road" d="M40 300 L205 160 L330 80 L420 26"/><text class="s" x="58" y="282">E17</text>
+  <path class="road" d="M205 0 L205 150 L330 236 L420 300"/><text class="s" x="212" y="18">N16</text>
+  <circle class="ring" cx="${home.x}" cy="${home.y}" r="132"/><text class="s" x="${home.x + 96}" y="${home.y - 100}">15 KM</text>`;
+  TOWNS.forEach(t => {
+    const on = hi && t.slug === hi, r = t.home ? 9 : 6, right = t.x < 330;
+    const dot = t.home ? `<circle class="home" cx="${t.x}" cy="${t.y}" r="${r}"/>` : `<circle class="t" cx="${t.x}" cy="${t.y}" r="${r}" ${on ? 'style="fill:var(--brick);stroke:var(--brick)"' : ''}/>`;
+    const label = `<text x="${right ? t.x + 13 : t.x - 13}" y="${t.y + 4}" text-anchor="${right ? 'start' : 'end'}" ${t.home || on ? 'style="font-weight:750;font-size:14px"' : ''}>${t.n}</text>`;
+    h += PRO ? `<a href="#${t.slug}">${dot}${label}</a>` : dot + label;
+  });
+  svg.innerHTML = h;
+}
+renderMap($('map'));
+$('rondes').innerHTML = Object.keys(RONDE).map(d => `<tr><th>${DAGEN[d][0].toUpperCase() + DAGEN[d].slice(1)}</th><td>${RONDE[d].map(n => tlink(TOWNS.find(t => t.n === n))).join(', ')}</td></tr>`).join('') + '<tr><th>Zaterdag</th><td>Klusjes en plaatsbezoeken</td></tr>';
+$('fsvc').innerHTML = SVC.map(s => `<li><a href="#${s.slug}">${s.title}</a></li>`).join('');
+$('ftown').innerHTML = TOWNS.slice(0, 6).map(t => `<li>${PRO ? `<a href="#${t.slug}">${t.n}</a>` : t.n}</li>`).join('') + '<li>en omliggende</li>';
+
+/* social templates */
+(() => {
+  const el = $('posts'); if (!el) return;
+  const mk = '<svg class="mk" style="color:#e8eef2"><use href="#mark"/></svg>';
+  el.innerHTML = `
+  <div class="post split"><div class="half"><canvas></canvas></div><div class="half r"><canvas></canvas></div>
+    <span class="lbl" style="left:12px">VOOR</span><span class="lbl" style="right:12px">NA</span>
+    <div class="ov" style="justify-content:flex-end;background:linear-gradient(transparent 55%,rgba(10,20,30,.75))"><div class="ft"><span>Terras · Sinaai</span>${mk}</div></div></div>
+  <div class="post plain"><div class="ov"><span class="tg" style="color:#8fb6d3">Dienst in de kijker</span><span class="big">Dakgoten leeg vóór de winter</span><div class="ft"><span>duofixservice.be</span>${mk}</div></div></div>
+  <div class="post cream"><div class="ov"><span class="st">★★★★★</span><span class="q">"Op tijd, proper gewerkt en eerlijk geprijsd. Volgend jaar opnieuw."</span><div class="ft"><span>Kristof · Sint-Niklaas</span><svg class="mk" style="color:#0f2238"><use href="#mark"/></svg></div></div></div>
+  <div class="post brickbg"><div class="ov"><span class="tg">Actie november</span><span class="big">−10% op ramen + dakgoten</span><div class="ft"><span>Boek voor 30/11</span>${mk}</div></div></div>`;
+  const [a, b] = el.querySelectorAll('.split canvas');
+  [a, b].forEach(c => c.style.objectFit = 'cover');
+  Art.terrace(a, true, 11); Art.terrace(b, false, 11);
+})();
+
+
+
+
+/* calculator */
+const S = { ramen: 12, terras: 30, goot: 16, kant: 'beide', hoog: .15, freq: .1, slot: 'Voormiddag, 8u tot 12u', gem: 'Sint-Niklaas', day: null };
+let TOTAL = 0, WORK = '';
+document.querySelectorAll('.stepper').forEach(st => {
+  const k = st.dataset.k, step = +st.dataset.step, min = +st.dataset.min, max = +st.dataset.max, u = st.dataset.u || '', out = st.querySelector('output');
+  const [m, p] = st.querySelectorAll('button');
+  const set = v => { S[k] = Math.max(min, Math.min(max, v)); out.textContent = S[k] + u; calc(); };
+  m.addEventListener('click', () => set(S[k] - step)); p.addEventListener('click', () => set(S[k] + step));
+});
+document.querySelectorAll('[data-g]').forEach(g => { if (g.dataset.multi) return; g.querySelectorAll('.chip').forEach(c => c.addEventListener('click', e => {
+  e.preventDefault(); g.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x === c));
+  const v = c.dataset.v; S[g.dataset.g] = isNaN(+v) ? v : +v; calc();
+})); });
+['cT', 'cD'].forEach(id => $(id).addEventListener('change', calc));
+function calc() {
+  const L = [], n = S.ramen, T = $('cT').checked, D = $('cD').checked;
+  $('cT').closest('.grp').querySelector('.stepper').style.opacity = T ? 1 : .4;
+  $('cD').closest('.grp').querySelector('.stepper').style.opacity = D ? 1 : .4;
+  let sub = 0, ramen = n * 3.5;
+  if (n) L.push([`${n} ramen buitenkant × ${eur(3.5)}`, ramen]);
+  if (n && S.kant === 'beide') { L.push([`${n} ramen binnenkant × ${eur(2.5)}`, n * 2.5]); ramen += n * 2.5; }
+  if (n && S.hoog) { L.push([`Toeslag verdieping +${Math.round(S.hoog * 100)}%`, ramen * S.hoog]); ramen *= 1 + S.hoog; }
+  sub += ramen;
+  if (T) { L.push([`Terras ${S.terras} m² × ${eur(4)}`, S.terras * 4]); sub += S.terras * 4; }
+  if (D) { L.push([`Dakgoten ${S.goot} m × ${eur(6)}`, S.goot * 6]); sub += S.goot * 6; }
+  if (sub < 45) { L.push(['Aangevuld tot minimumbedrag', 45 - sub]); sub = 45; }
+  let tot = sub;
+  if (S.freq) { const d = sub * S.freq; L.push([`Korting abonnement −${Math.round(S.freq * 100)}%`, -d, 1]); tot -= d; }
+  TOTAL = tot;
+  $('lines').innerHTML = L.map(([a, v, disc]) => `<div class="${disc ? 'disc' : ''}"><span>${a}</span><b>${disc ? '−' + eur(-v) : eur(v)}</b></div>`).join('');
+  $('tot').textContent = eur(Math.round(tot));
+  $('totlbl').textContent = S.freq ? 'Per beurt, incl. btw' : 'Eenmalig, incl. btw';
+  const w = []; if (n) w.push(`${n} ramen ${S.kant === 'beide' ? 'binnen en buiten' : 'buiten'}`); if (T) w.push(`terras ${S.terras} m²`); if (D) w.push(`dakgoten ${S.goot} m`);
+  WORK = w.join(', ') || 'Nog niets gekozen';
+  summary();
+}
+/* boeken */
+const FULL = ['2026-10-26', '2026-10-30'];
+$('gem').innerHTML = TOWNS.map(t => `<option ${t.n === S.gem ? 'selected' : ''}>${t.n}</option>`).join('');
+$('dows').innerHTML = ['ma', 'di', 'wo', 'do', 'vr', 'za'].map(d => `<span class="dow">${d}</span>`).join('');
+const TODAY = new Date(2026, 9, 21);
+const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+function days() {
+  const el = $('days'); el.innerHTML = ''; S.day = null;
+  const start = new Date(2026, 9, 19);
+  for (let i = 0; i < 21; i++) {
+    const d = new Date(start); d.setDate(start.getDate() + i); const wd = d.getDay(); if (wd === 0) continue;
+    const b = document.createElement('button'); b.className = 'day'; b.setAttribute('aria-pressed', 'false');
+    const past = d <= TODAY, full = FULL.includes(iso(d)), on = RONDE[wd] && RONDE[wd].includes(S.gem);
+    let note = past ? 'voorbij' : wd === 6 ? 'klusjes' : full && on ? 'volzet' : on ? 'jouw ronde' : (RONDE[wd] || [''])[0];
+    b.disabled = past || !on || full; if (on && !past && !full) b.classList.add('on');
+    b.innerHTML = `<b>${d.getDate()}</b><small>${note}</small>`;
+    b.setAttribute('aria-label', `${DAGEN[wd]} ${d.getDate()} ${d.toLocaleString('nl-BE', { month: 'long' })}, ${note}`);
+    b.addEventListener('click', () => { el.querySelectorAll('.day').forEach(x => x.setAttribute('aria-pressed', x === b)); S.day = `${DAGEN[wd]} ${d.getDate()} ${d.toLocaleString('nl-BE', { month: 'long' })}`; summary(); });
+    el.appendChild(b);
+  }
+  const first = el.querySelector('.day:not(:disabled)'); first && first.click();
+  summary();
+}
+$('gem').addEventListener('change', e => { S.gem = e.target.value; $('conf').hidden = true; days(); });
+function summary() {
+  if (!$('sum')) return;
+  const fr = { 0: 'Eenmalig', .1: 'Elke 8 weken', .15: 'Elke 4 weken' }[S.freq];
+  $('sum').innerHTML = [['Werk', WORK], ['Ritme', fr], ['Gemeente', S.gem], ['Datum', S.day || 'Kies een dag'], ['Moment', S.slot], ['Richtprijs', TOTAL ? eur(Math.round(TOTAL)) : '']].map(([a, b]) => `<div><dt>${a}</dt><dd>${esc(b)}</dd></div>`).join('');
+}
+$('bf').addEventListener('submit', e => { e.preventDefault(); $('conf').hidden = false; });
+calc(); days();
+
+
+/* dienst- en gemeentepagina's */
+const home = document.querySelector('[data-view="home"]'), pageV = document.querySelector('[data-view="page"]'), page = $('page');
+function baHTML() { return `<div class="ba" style="--p:46%"><canvas></canvas><canvas class="before"></canvas><span class="tag" style="left:14px">Voor</span><span class="tag" style="right:14px">Na</span><span class="bar"></span><span class="knob"><svg><use href="#lr"/></svg></span><input type="range" min="0" max="100" value="46" aria-label="Schuif tussen voor en na"></div>`; }
+function svcPage(s) {
+  const cta = PRO ? `<a class="btn brick" href="#prijs">Bereken je prijs<svg><use href="#arrow"/></svg></a>` : `<a class="btn brick" href="#offerte">Vraag een offerte<svg><use href="#arrow"/></svg></a>`;
+  page.innerHTML = `<div class="crumbs"><a href="#top">Home</a> / <a href="#diensten">Diensten</a> / ${s.title}<code>duofixservice.be/${s.slug}</code></div>
+  <div class="svc-hero"><div><span class="kicker">${s.title}</span><h1>${s.h1}</h1><p class="lead" style="margin-top:22px">${s.lead}</p>
+  <ul class="incl">${s.incl.map(i => `<li>${i}</li>`).join('')}</ul>
+  <div class="pricebox"><b>vanaf ${s.from}</b><span>${s.unit}, ${s.note}</span></div>
+  <div class="cta">${cta}<a class="btn ghost" href="#werkgebied">Waar we werken</a></div></div>
+  <div>${s.art === 'laminate' ? '<div class="single"><canvas></canvas></div>' : baHTML()}</div></div>
+  <section style="padding-block:0 96px"><div class="faq"><span class="kicker">Veelgestelde vragen</span><h2 style="margin-bottom:14px">Goed om te weten.</h2>${s.faq.map(([q, a], i) => `<details ${i ? '' : 'open'}><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
+  <div style="margin-top:64px"><span class="kicker">Andere diensten</span><div class="others">${SVC.filter(x => x !== s).map(x => `<a href="#${x.slug}">${x.title}</a>`).join('')}</div></div></section>`;
+  const ba = page.querySelector('.ba');
+  if (ba) { baBind(ba); baDraw(ba, s.art, 70); } else Art.laminate(page.querySelector('.single canvas'), 31);
+}
+function townPage(t) {
+  const d = daysFor(t.n);
+  page.innerHTML = `<div class="crumbs"><a href="#top">Home</a> / <a href="#werkgebied">Werkgebied</a> / ${t.n}<code>duofixservice.be/ramen-wassen-${t.slug}</code></div>
+  <div class="svc-hero"><div><span class="kicker">${t.pc} ${t.n}</span><h1>Ramen wassen in ${t.n}</h1>
+  <p class="lead" style="margin-top:22px">${d.length ? `Elke ${d.join(' en ')} rijden we onze ronde in ${t.n}.` : `In ${t.n} komen we op afspraak.`} Ook voor terrassen, gevels, dakgoten en klusjes ben je in ${t.n} aan het juiste adres.</p>
+  <ul class="incl">${SVC.map(s => `<li><a href="#${s.slug}">${s.title}</a>&nbsp;vanaf ${s.from}</li>`).join('')}</ul>
+  <div class="pricebox"><b>${d.length ? d.map(x => x[0].toUpperCase() + x.slice(1)).join(' + ') : 'Op afspraak'}</b><span>vaste ronde in ${t.n}</span></div>
+  <div class="cta"><a class="btn brick" href="#boeken" data-gem="${t.n}">Boek op je ronde-dag<svg><use href="#arrow"/></svg></a></div></div>
+  <svg class="map" viewBox="0 0 420 320" role="img" aria-label="Kaart met ${t.n} aangeduid"></svg></div>`;
+  renderMap(page.querySelector('svg.map'), t.slug);
+  const b = page.querySelector('[data-gem]'); b && b.addEventListener('click', () => { if ($('gem')) { $('gem').value = t.n; S.gem = t.n; days(); } });
+}
+function route() {
+  const h = decodeURIComponent(location.hash.slice(1)), s = SVC.find(x => x.slug === h), t = PRO && TOWNS.find(x => x.slug === h);
+  const wasPage = !pageV.hidden;
+  if (s || t) { home.hidden = true; pageV.hidden = false; s ? svcPage(s) : townPage(t); window.scrollTo(0, 0); }
+  else { pageV.hidden = true; home.hidden = false; if (wasPage) { const el = h && document.getElementById(h); el && h !== 'top' ? el.scrollIntoView() : window.scrollTo(0, 0); } }
+}
+addEventListener('hashchange', route); route();
+
+</script>
+
+</body>
+</html>

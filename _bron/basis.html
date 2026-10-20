@@ -1,0 +1,166 @@
+<title>DuoFix Service Basis</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap">
+<style>
+/* Layout: sobere one-pager zonder huisstijl, tekstlogo, één lettertype, gevelbeeld rechts, tarieven als lijst */
+:root{
+  --paper:#f3f4f4; --surface:#ffffff; --ink:#1b2328; --muted:#5f6a70; --line:#dadfe1; --accent:#24506b; --accent-fg:#ffffff; --ok:#2c7a4b;
+  --font:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111618; --surface:#171e21; --ink:#e7ecee; --muted:#9aa6ac; --line:#273034; --accent:#7fb1cf; --accent-fg:#0b1a23; --ok:#5bbf86; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111618; --surface:#171e21; --ink:#e7ecee; --muted:#9aa6ac; --line:#273034; --accent:#7fb1cf; --accent-fg:#0b1a23; --ok:#5bbf86; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);font-size:16.5px;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.02em;line-height:1.1}
+h1{font-size:clamp(34px,5vw,54px);font-weight:700}
+h2{font-size:clamp(26px,3.4vw,36px);font-weight:700}
+h3{font-size:19px;font-weight:650}
+p{margin:0}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.demo{border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.demo .wrap{display:flex;justify-content:space-between;gap:12px;padding-block:6px;flex-wrap:wrap}
+.demo b{color:var(--ink)}
+header{background:var(--surface);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:18px;flex-wrap:wrap}
+.logo{font-weight:700;font-size:21px;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+nav{display:flex;gap:24px;flex-wrap:wrap}
+nav a{color:var(--muted);text-decoration:none;font-weight:550;font-size:15px}
+nav a:hover{color:var(--ink)}
+.label{font-size:12.5px;font-weight:650;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);display:block;margin-bottom:12px}
+.lead{color:var(--muted);font-size:18px;max-width:54ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:6px;font:inherit;font-weight:650;font-size:15.5px;text-decoration:none;border:0;cursor:pointer}
+.btn.solid{background:var(--accent);color:var(--accent-fg)}
+.btn.line{color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line);background:var(--surface)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding-block:64px}
+.hero .lead{margin:20px 0 28px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.house{aspect-ratio:320/384;max-width:100%;border-radius:6px;overflow:hidden}
+.house canvas{width:100%;height:100%;display:block}
+section{padding-block:72px;border-top:1px solid var(--line)}
+.list{margin-top:32px;border-top:1px solid var(--line)}
+.item{display:grid;grid-template-columns:1fr auto;gap:24px;padding-block:20px;border-bottom:1px solid var(--line);align-items:baseline}
+.item p{color:var(--muted);font-size:15.5px;margin-top:4px}
+.item b{font-size:20px;font-weight:650;white-space:nowrap;font-variant-numeric:tabular-nums}
+.item small{display:block;text-align:right;color:var(--muted);font-size:13px;font-weight:500}
+.real{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.real figure{margin:0;min-width:0}
+.real canvas{width:100%;aspect-ratio:1/.62;display:block;border-radius:6px;max-width:100%}
+.real figcaption{margin-top:10px;font-size:15px}
+.real figcaption span{color:var(--muted)}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.about p{color:var(--muted);margin-top:16px;max-width:58ch}
+dl{margin:0}
+dl div{display:flex;justify-content:space-between;gap:16px;padding-block:12px;border-bottom:1px solid var(--line)}
+dt{color:var(--muted)}
+dd{margin:0;font-weight:600;text-align:right}
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px}
+.ci{display:grid;gap:14px;margin-top:22px}
+.ci div{display:grid;gap:2px}
+.ci span{font-size:13px;color:var(--muted)}
+.ci b{font-size:18px;user-select:all}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:26px}
+form .full{grid-column:1/-1}
+label{display:grid;gap:6px;font-weight:600;font-size:14px}
+input,select,textarea{font:inherit;font-weight:450;font-size:15.5px;padding:11px 12px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);width:100%}
+.ok{grid-column:1/-1;border:1px solid var(--line);border-radius:6px;padding:12px 14px;font-size:15px}
+.ok b{color:var(--ok)}
+.wa{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:8px;background:#1f8f50;color:#fff;border-radius:999px;padding:12px 18px 12px 14px;font-weight:650;font-size:15px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.wa svg{width:20px;height:20px}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:26px 90px}
+@media (max-width:860px){
+  .hero .wrap,.about,.contact{grid-template-columns:1fr}
+  .hero .wrap{gap:36px;padding-block:44px}
+  .house{max-width:420px}
+  .real{grid-template-columns:1fr}
+  nav{display:none}
+}
+@media (max-width:520px){form{grid-template-columns:1fr;padding:18px}}
+</style>
+
+<div class="demo"><div class="wrap"><span>Voorbeeldsite · <b>Pakket Basis</b></span><span>Prijzen en teksten zijn voorbeeldinhoud</span></div></div>
+<header><div class="wrap">
+  <a class="logo" href="#top">DuoFix Service</a>
+  <nav aria-label="Hoofdmenu"><a href="#diensten">Diensten</a><a href="#realisaties">Realisaties</a><a href="#over">Over ons</a><a href="#contact">Contact</a></nav>
+</div></header>
+
+<main id="top">
+<div class="hero"><div class="wrap">
+  <div>
+    <span class="label">Sint-Niklaas en het Waasland</span>
+    <h1>Ramen wassen, gevel- en terrasreiniging en klusjeswerk</h1>
+    <p class="lead">Eén vaste vakman voor propere ramen, frisse gevels en de klusjes die blijven liggen. Prijs vooraf, geen verrassingen.</p>
+    <div class="btns"><a class="btn solid" href="#contact">Vraag een offerte</a><a class="btn line" href="#diensten">Bekijk de tarieven</a></div>
+  </div>
+  <div class="house"><canvas id="fac" aria-label="Rijwoning met propere ramen"></canvas></div>
+</div></div>
+
+<section id="diensten"><div class="wrap">
+  <span class="label">Diensten</span>
+  <h2>Wat we doen en wat het kost</h2>
+  <div class="list">
+    <div class="item"><div><h3>Ramen wassen</h3><p>Binnen en buiten, ook veranda's en dakvensters.</p></div><div><b>vanaf €45</b><small>per beurt</small></div></div>
+    <div class="item"><div><h3>Terras en oprit</h3><p>Mos en groene aanslag weg, met nabehandeling.</p></div><div><b>vanaf €4</b><small>per m²</small></div></div>
+    <div class="item"><div><h3>Gevels en dakgoten</h3><p>Voorgevel reinigen, dakgoten leegmaken.</p></div><div><b>vanaf €6</b><small>per meter dakgoot</small></div></div>
+    <div class="item"><div><h3>Klusjes en kleine verbouwingen</h3><p>Schilderwerk, laminaat, plinten en herstellingen.</p></div><div><b>€45</b><small>per uur</small></div></div>
+  </div>
+</div></section>
+
+<section id="realisaties"><div class="wrap">
+  <span class="label">Realisaties</span>
+  <h2>Recent werk</h2>
+  <div class="real">
+    <figure><canvas data-a="terrace"></canvas><figcaption>Terras <span>· Sinaai</span></figcaption></figure>
+    <figure><canvas data-a="wall"></canvas><figcaption>Voorgevel <span>· Belsele</span></figcaption></figure>
+    <figure><canvas data-a="laminate"></canvas><figcaption>Laminaat <span>· Temse</span></figcaption></figure>
+  </div>
+</div></section>
+
+<section id="over"><div class="wrap about">
+  <div>
+    <span class="label">Over ons</span>
+    <h2>Een vaste vakman, geen callcenter</h2>
+    <p>Bij DuoFix Service spreek je altijd met dezelfde persoon. We komen wanneer afgesproken, werken proper en nemen ons afval mee.</p>
+  </div>
+  <dl>
+    <div><dt>Werkgebied</dt><dd>Sint-Niklaas en het Waasland</dd></div>
+    <div><dt>Offerte en plaatsbezoek</dt><dd>Gratis</dd></div>
+    <div><dt>Bereikbaar</dt><dd>Ma tot za, 7u30 tot 18u</dd></div>
+    <div><dt>Verzekering</dt><dd>BA-verzekerd</dd></div>
+  </dl>
+</div></section>
+
+<section id="contact"><div class="wrap contact">
+  <div>
+    <span class="label">Contact</span>
+    <h2>Vraag vrijblijvend een prijs</h2>
+    <div class="ci">
+      <div><span>Bel of WhatsApp</span><b>0470 12 34 56</b></div>
+      <div><span>Mail</span><b>info@duofixservice.be</b></div>
+    </div>
+  </div>
+  <form id="f">
+    <label for="n">Naam<input id="n" autocomplete="name" required value="Sofie Peeters"></label>
+    <label for="t">Gsm<input id="t" autocomplete="tel" required value="0478 12 34 56"></label>
+    <label class="full" for="d">Dienst<select id="d"><option>Ramen wassen</option><option selected>Terras en oprit</option><option>Gevels en dakgoten</option><option>Klusjes</option></select></label>
+    <label class="full" for="m">Bericht<textarea id="m" rows="4">Terras van ongeveer 40 m², veel mos tussen de voegen.</textarea></label>
+    <button class="btn solid full" type="submit">Verstuur</button>
+    <div class="ok" id="ok" hidden><b>Verstuurd.</b> We nemen snel contact op. (demo)</div>
+  </form>
+</div></section>
+</main>
+
+<a class="wa" href="https://wa.me/32470123456"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2 5.2 5.2 0 001.1 2.7 11.8 11.8 0 004.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 001.8-1.2 2.2 2.2 0 00.1-1.3c0-.1-.2-.2-.4-.3z"/></svg>WhatsApp</a>
+<footer><div class="wrap"><span>© 2026 DuoFix Service · BE 0712.345.678</span><span>Sint-Niklaas</span></div></footer>
+
+<script>
+{{ART}}
+Art.facade(document.getElementById('fac'));
+document.querySelectorAll('[data-a]').forEach((c,i)=>{const k=c.dataset.a;k==='terrace'?Art.terrace(c,false,12):k==='wall'?Art.wall(c,false,22):Art.laminate(c,32)});
+document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();document.getElementById('ok').hidden=false});
+</script>
